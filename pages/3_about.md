@@ -31,5 +31,3 @@ end
 {% endhighlight %}
 
 
-* [掘金的博客](https://juejin.cn/user/1477347654501047)
-
