@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-categories: 日记
+categories: 算法
 ---
 
 ## Empty diary template

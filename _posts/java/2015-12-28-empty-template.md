@@ -1,9 +1,9 @@
 ---
 layout: post
 comments: true
-categories: 日记
+categories: Java
 ---
 
-## Empty diary template
+## Empty npl tutorial template
 
 Empty post template

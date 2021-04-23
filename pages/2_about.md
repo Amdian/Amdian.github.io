@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About
+title: 关于
 comments: true
 permalink: /about/
 ---
@@ -8,22 +8,13 @@ permalink: /about/
 * content
 {:toc}
 
-## About the site
-This is a personal website of LiXizhi, created with github and jekyll. 
-Create your own website is as easy as clone or fork a [template](https://github.com/LiXizhi/lixizhi.github.io) on github, and [commit](http://jekyllrb.com/docs/posts/) to `_posts` folder. 
+### 管理工具 
+* Jekyll official site(中文版): [jekyllcn](http://jekyllcn.com/)
+* markdown 参考: [kramdown](http://kramdown.gettalong.org/quickref.html)
+* 关于 Hexo + gitHub另外一种方法[volantis](https://volantis.js.org/)
 
-### Admin tools
-* site [configuration file](https://github.com/LiXizhi/lixizhi.github.io/blob/master/_config.yml)
-* Jekyll + [lixizhi.duoshuo.com](http://lixizhi.duoshuo.com/admin/)
-* Jekyll + [lixizhi.disqus.com](http://lixizhi.disqus.com/admin/)
-* Jekyll theme templates: [jekyllthemes.org](http://jekyllthemes.org)
-   * Theme used: [cool-concise](http://jekyllthemes.org/themes/cool-concise-high-end/)
-* Jekyll official site: [jekyllrb.com](http://jekyllrb.com)
-* YAML for human readable markdown: [yaml.org](http://www.yaml.org/)
-* markdown reference: [kramdown](http://kramdown.gettalong.org/quickref.html)
-
-### About comments
-Add a variable called `comments` to the [YAML front matter](http://jekyllrb.com/docs/frontmatter/) and set its value to true. A sample might look like:
+### 关于注释
+Add a variable called `comments` to the [YAML front matter](http://jekyllcn.com/docs/plugins/) and set its value to true. A sample might look like:
 
     ---
     layout: post
@@ -32,8 +23,6 @@ Add a variable called `comments` to the [YAML front matter](http://jekyllrb.com/
     ---
 
 ### Sample markdowns
-Click view source at the bottom of the page
-
 * Embedding code
 {% highlight lua %}
 local function main()
@@ -42,13 +31,5 @@ end
 {% endhighlight %}
 
 
-## About me
-
-My primary research interest is in artificial intelligence, programming and education. See my project page for details.
-
-
-### 2005 Old Website 
-Here is my old personal website when I was in University. It was mostly on my projects and thoughts before 2005.
-
-* [Xizhi's old website before 2005](/oldsite2005/index.htm). 
+* [掘金的博客](https://juejin.cn/user/1477347654501047)
 

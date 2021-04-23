@@ -1,0 +1,90 @@
+I"(<h1 id="all-my-projects">All my projects</h1>
+<p>Following are projects started by me.</p>
+
+<h2 id="npl-project">NPL project</h2>
+<ul>
+  <li>Started: 2004-present</li>
+  <li>Website: <a href="http://www.nplproject.com">www.nplproject.com</a>
+    <ul>
+      <li>NPL Code Wiki</li>
+      <li>NPL language service and debugger</li>
+    </ul>
+  </li>
+</ul>
+
+<p>NPL（神经并行语言）是一种新的编程语言，它是我在网络环境中对编码逻辑的探索时开始的。
+多年来，我用它编写了超过一百万行代码，自2005年以来我所有其他项目都被编写在其中。</p>
+
+<h2 id="paracraft">Paracraft</h2>
+<ul>
+  <li>Started: 2012-present</li>
+  <li>Website: <a href="http://www.paracraft.cn">www.paracraft.cn</a>
+    <ul>
+      <li><a href="https://github.com/LiXizhi/ParaCraftSDK">ParacraftSDK</a></li>
+      <li>Self Learning College</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Paracraft是一款适用于所有人的独立3d动画软件。
+这是我使用视觉大脑（即您的右脑）对CAD（计算机辅助设计）的探索。
+Paracraft是一个可扩展的工具，每个人都可以学习创建视频和计算机程序。
+我正在使用它在自学学院推广NPL语言，以教学生编程。</p>
+
+<h2 id="paraengine">ParaEngine</h2>
+<ul>
+  <li>Started: 2005-present</li>
+  <li>Website: <a href="http://www.paraengine.com">www.paraengine.com</a>
+    <ul>
+      <li>ParaEngine Developer Site (PEDN)</li>
+      <li>MCML: a markup language to create GUI</li>
+    </ul>
+  </li>
+</ul>
+
+<p>ParaEngine是我用C ++ / NPL编写的3d分布式游戏引擎，自2005年以来，它已成为我所有其他项目的低级代码框架。</p>
+
+<h2 id="magic-haqi">Magic Haqi</h2>
+<ul>
+  <li>Started: 2009-2014 (still operating)</li>
+  <li>Website: <a href="http://haqi.61.com">haqi.61.com</a>
+    <ul>
+      <li>user forum</li>
+      <li>user videos</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Magic Haqi is a free/paid 3D MMORPG published by taomee in November, 2009, allowing kids to play, create and share 3d worlds. It has over 5 million registered users and tens of thousands of user created works in China. The software is developed and owned by the developers of Paracraft, but has nothing to do with Paracraft. The initial version of paracraft was developed as a module in Magic Haqi. We have valid contract with its publisher taomee for their use of paracraft and its source code.</p>
+
+<h2 id="magic-haqi2">Magic Haqi2</h2>
+<ul>
+  <li>Started: 2012-2013 (still operating)</li>
+  <li>Website: <a href="http://www.61.com/haqi2/home.html">haqi2.61.com</a></li>
+</ul>
+
+<p>Same as Magic haqi.</p>
+
+<h2 id="paraworld">ParaWorld</h2>
+<ul>
+  <li>Started: 2007-2008</li>
+  <li>Website: closed</li>
+</ul>
+
+<p>It used to be hosted on www.pala5.cn. It is a community based world creation game. We did not manage to make it to the public, and closed the project.</p>
+
+<h2 id="kids-movie-creator">Kids Movie Creator</h2>
+<ul>
+  <li>Started: 2006-2007</li>
+  <li>Website: <a href="http://kids-movie-creator.software.informer.com/">download link</a></li>
+</ul>
+
+<p>Kids Movie Creator is a very old shareware released in 2006, allowing kids to create 3d world and make movies.</p>
+
+<h2 id="before-2005">Before 2005</h2>
+<ul>
+  <li>Started: 1989-2005 (very old ones)</li>
+  <li><a href="/oldsite2005/projects.htm">Xizhi’s old website before 2005</a>.</li>
+</ul>
+
+:ET

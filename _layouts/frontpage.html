@@ -10,12 +10,13 @@ layout: default
     </div>
   </div>
 </div>
+
 <p><br/></p>
 <div id="index" class="row">
   <div class="col-sm-9">
     <div class="post-area ">
 	  <div class="post-list-header">
-	  Posts
+        草草世界
 	  </div>
       <div class="post-list-body">
         <div class="all-posts" post-cate="All">
@@ -28,7 +29,7 @@ layout: default
             </a>
           {% endfor %}
         </div>
-        <!-- <div class="posts-in-categories"> -->
+        <!-- <div class="posts-in-categories"> categories 翻译成 分类 -->
         {% for category in site.categories %}
           <div post-cate="{{category | first}}">
             {% for posts in category  %}
@@ -49,18 +50,24 @@ layout: default
       </div>
     </div>
   </div>
-  <div class="col-sm-3">
+
+  <div class="col-sm-3"><!--Categories分类的设置-->
     <div class="shadow-corner-curl hidden-xs">
       <div class="categories-list-header">
-        Categories
+        分类
       </div>
       
       <a href="javascript:;" class="categories-list-item" cate="All">
-        All<span class="my-badge"> {{site.posts | size}}</span>
+        全部<span class="my-badge"> {{site.posts | size}}</span>
       </a>
       {% for category in site.categories %}
         <a href="javascript:;" class="categories-list-item" cate="{{ category | first }}">
           {{ category | first }} <span class="my-badge">{{ category | last | size }}</span>
+          <!--
+            使用 {{ category | first }} 输出分类的名称 
+            使用 {{ category | last | size }} 输出该分类下文章的数目
+            遍历 category.last 输出所有文章的信息，构建到该文章的索引目录	
+          -->
         </a>
       {% endfor %}
     </div>
