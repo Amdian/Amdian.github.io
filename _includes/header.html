@@ -23,8 +23,11 @@
           {% else %}
           <li>
         {% endif %}
-        <a href="{{ site.baseurl }}/">主页</a></li>
+         <!-- <a href="{{ site.baseurl }}/">主页</a>-->
+        </li>
+        
 
+        <!--循环输入头标题-->
         {% for p in site.pages %}
           {% if p.title %}
             {% if p.url == page.url %}
