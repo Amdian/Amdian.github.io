@@ -2,7 +2,7 @@
 layout: page
 title: 归档
 comments: true
-permalink: /projects/
+permalink: /archives/
 ---
 
 * content

@@ -1,0 +1,96 @@
+I"�<ul id="markdown-toc">
+  <li><a href="#封装" id="markdown-toc-封装">封装</a></li>
+</ul>
+
+<h3 id="封装">封装</h3>
+<ol>
+  <li><strong>概念</strong></li>
+</ol>
+
+<blockquote>
+  <p>封装性是面向对象的核心特征之一，它提供了一种信息隐藏技术。类的封转性的含义是将数据和对数据的操作组合起来构成类，
+类是一个不可分割的独立单位。类中既要提供与外部联系的接口，同时又要尽可能隐藏类的实现细节。封装性为软件提供了一种模块化
+的设计机制，设计者提供标准化的类模版，使用者根据实际需求来选择所需要的模块，通过组装模块实现大型软件系统。</p>
+</blockquote>
+
+<ol>
+  <li><strong>访问控制</strong></li>
+</ol>
+
+<blockquote>
+  <p>按照类的封装性原则，类的设计者既要提供类与外部的联系方式，又要尽可能地隐藏类的实现细节。这就要求了设计者应当根据实际需要，
+为类和类中的成员变量和成员方法分别设置合理的访问权限。<br /></p>
+</blockquote>
+
+<p>在此，Java为类中的成员变量和成员方法设置了4种访问权限，为类本身设置了2种访问权限。</p>
+
+<p><strong>■ 类成员的访问权限</strong></p>
+
+<p>Java提供的4种访问权限分别为：public（公有）、protected（保护）、默认和private（私有）。具体含义如下</p>
+
+<p>☞ public</p>
+
+<blockquote>
+  <p>被public修饰的成员变量和成员方法可以在所有的类中被访问。<strong>所谓在某类中访问某成员变量</strong>，是指在该类的方法中给成员变量赋值、输出其值、在表达式中应用其值等；<strong>所谓在某类中访问某成员方法</strong>，是指在该类的方法中调用该成员方法。因此在所有类的方法中都可以被public修饰的成员变量，调用被public修饰的成员方法。</p>
+</blockquote>
+
+<p>☞ protected</p>
+
+<blockquote>
+  <p>被protected修饰的成员变量和成员方法可以在声明它们的类中被访问，或在该类的子类中被访问，也可以被与该类在同一个包中的类访问，但不能被其他包中的非子类访问。</p>
+</blockquote>
+
+<p>☞ 默认</p>
+
+<blockquote>
+  <p>默认是指不使用任何权限修饰符。被默认修饰的成员变量和成员方法可以被声明它们的类访问，也可以被与该类在同一包中的类访问，但不能被位于其他包中的类访问。默认权限 以包为界 划分访问权限的范围，使成员人可以被与其所属的类位于同一包中的类访问，而不能被该包以外的类访问。</p>
+</blockquote>
+
+<p>☞ private</p>
+
+<blockquote>
+  <p>被private修饰的成员变量和成员方法只能在声明它们的类中被访问,而不能被其他类,甚至其子类所访问。被private修饰的成员，其被访问的权限范围最小，对所有其他类都隐藏信息。</p>
+</blockquote>
+
+<table>
+    <tr>
+        <th rowspan="1">比较项目</th>
+        <th>public</th>
+        <th>protected</th>
+        <th>默认</th>
+        <th>private</th>
+    </tr>
+    <tr>
+        <td>本类</td>
+        <td>✔</td>
+        <td>✔</td>
+        <td>✔</td>
+        <td>✔</td>
+    </tr>
+    <tr>
+        <td>本类所在包</td>
+        <td>✔</td>
+        <td>✔</td>
+        <td>✔</td>
+        <td>━</td>
+    </tr>
+    <tr>
+        <td>其他</td>
+        <td>✔</td>
+        <td>✔</td>
+        <td>✔</td>
+        <td>✔</td>
+    </tr>
+</table>
+
+<p><strong>■ 类的访问权限</strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">show</span>
+  <span class="vi">@widget</span> <span class="o">=</span> <span class="no">Widget</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+  <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+    <span class="nb">format</span><span class="p">.</span><span class="nf">html</span> <span class="c1"># show.html.erb</span>
+    <span class="nb">format</span><span class="p">.</span><span class="nf">json</span> <span class="p">{</span> <span class="n">render</span> <span class="ss">json: </span><span class="vi">@widget</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+:ET
