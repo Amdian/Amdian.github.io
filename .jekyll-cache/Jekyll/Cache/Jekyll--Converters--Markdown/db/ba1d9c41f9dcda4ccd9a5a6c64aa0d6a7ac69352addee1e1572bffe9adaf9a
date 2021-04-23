@@ -1,0 +1,11 @@
+I"i<ul id="markdown-toc">
+  <li><a href="#创建线程的多种方式" id="markdown-toc-创建线程的多种方式">创建线程的多种方式</a></li>
+</ul>
+
+<h3 id="创建线程的多种方式">创建线程的多种方式</h3>
+<ul>
+  <li>继承Thread类</li>
+  <li>实现Runnable接口创建线程</li>
+  <li>通过Callable和FutureTask创建线程</li>
+</ul>
+:ET
