@@ -1,0 +1,24 @@
+I"�<ul id="markdown-toc">
+  <li><a href="#选择题" id="markdown-toc-选择题">选择题</a></li>
+</ul>
+
+<h3 id="选择题">选择题</h3>
+<ul>
+  <li>squid..服务器..访问443端口的客户端命名</li>
+  <li>java的文件读写，权限控制</li>
+  <li>java所有变量是否需要指定类型
+    <ol>
+      <li>强制GC…怎么回收对象</li>
+      <li>数据库的范式</li>
+      <li>链表，单链表查询某个值的时间复杂度；多个有序链表合成一个的时间复杂度多少</li>
+      <li>java的==</li>
+      <li>堆栈、堆排序</li>
+      <li>java的加载机制</li>
+      <li>Java进程</li>
+      <li>反射机制</li>
+      <li>Java异常</li>
+      <li>Object类的方法有哪些</li>
+    </ol>
+  </li>
+</ul>
+:ET
