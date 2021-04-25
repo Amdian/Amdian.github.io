@@ -1,0 +1,121 @@
+I"�<ul id="markdown-toc">
+  <li><a href="#this-关键字" id="markdown-toc-this-关键字">this 关键字</a></li>
+  <li><a href="#final-关键字" id="markdown-toc-final-关键字">final 关键字</a></li>
+</ul>
+
+<center>关键字表</center>
+<div>
+    <table>
+        <tr>
+            <td width="150">abstract</td>
+            <td width="150">boolean</td>
+            <td width="150">break</td>
+            <td width="150">byte</td>
+            <td width="150">case</td>
+        </tr>
+        <tr>
+            <td>catch</td>
+            <td>char</td>
+            <td>class</td>
+            <td>const</td>
+            <td>continue</td>
+        </tr>
+        <tr>
+            <td>default</td>
+            <td>do</td>
+            <td>double</td>
+            <td>else</td>
+            <td>extends</td>
+        </tr>
+        <tr>
+            <td>final</td>
+            <td>finally</td>
+            <td>float</td>
+            <td>for</td>
+            <td>goto</td>
+        </tr>
+        <tr>
+            <td>if</td>
+            <td>implements</td>
+            <td>import</td>
+            <td>instanceof</td>
+            <td>int</td>
+        </tr>
+        <tr>
+            <td>interface</td>
+            <td>long</td>
+            <td>native</td>
+            <td>new</td>
+            <td>package</td>
+        </tr>
+        <tr>
+            <td>private</td>
+            <td>protected</td>
+            <td>public</td>
+            <td>return</td>
+            <td>short</td>
+        </tr>
+        <tr>
+            <td>static</td>
+            <td>strictfp</td>
+            <td>super</td>
+            <td>switch</td>
+            <td>synchronized</td>
+        </tr>
+        <tr>
+            <td>this</td>
+            <td>throw</td>
+            <td>throws</td>
+            <td>transient</td>
+            <td>try</td>
+        </tr>
+        <tr>
+            <td>void</td>
+            <td>volatile</td>
+            <td>while</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<hr />
+
+<h3 id="this-关键字">this 关键字</h3>
+<blockquote>
+  <p>作用：获取当前对象的引用</p>
+
+  <p>限制：this关键字只能在方法内部使用，表示对“调用方法的那个对象”的引用。</p>
+</blockquote>
+
+<p><font size="3" color="#8B0000">在这里只讲this的其中一个用法</font></p>
+<p>这种用法就是构造函数的第一个语句，它的形式是 this(参数表)，这个构造函数就会调用同一个类的另一个相对的构造函数。如下面例子。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">public</span> <span class="k">class</span> <span class="nc">This</span> <span class="p">{</span>
+	
+	<span class="no">String</span> <span class="nb">name</span><span class="p">;</span>
+	<span class="n">int</span> <span class="n">num</span><span class="p">;</span>
+	
+	<span class="kp">public</span> <span class="no">This</span><span class="p">(</span><span class="no">String</span> <span class="nb">name</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">this</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+	<span class="p">}</span>
+	
+	<span class="kp">public</span> <span class="no">This</span><span class="p">(</span><span class="no">String</span> <span class="nb">name</span><span class="p">,</span><span class="n">int</span> <span class="n">number</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">this</span><span class="p">.</span><span class="nf">name</span><span class="o">=</span><span class="nb">name</span><span class="p">;</span>
+		<span class="n">this</span><span class="p">.</span><span class="nf">num</span><span class="o">=</span><span class="n">number</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="kp">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="no">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+		<span class="sr">//</span> <span class="no">TODO</span> <span class="no">Auto</span><span class="o">-</span><span class="n">generated</span> <span class="nb">method</span> <span class="n">stub</span>
+		<span class="no">This</span> <span class="n">t</span><span class="o">=</span><span class="n">new</span> <span class="no">This</span><span class="p">(</span><span class="s2">"你好"</span><span class="p">);</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="nf">num</span><span class="p">);</span>
+	<span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>附：输出结果是5</p>
+
+<h3 id="final-关键字">final 关键字</h3>
+<p>Java关键字final的含义存在着细微的区别，但通常它指的是“这是无法改变的。”</p>
+
+:ET
