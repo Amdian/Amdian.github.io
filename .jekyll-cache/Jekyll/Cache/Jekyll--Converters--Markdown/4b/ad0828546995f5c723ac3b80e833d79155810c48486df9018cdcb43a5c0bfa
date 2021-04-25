@@ -1,4 +1,4 @@
-I"�<ul id="markdown-toc">
+I"�<ul id="markdown-toc">
   <li><a href="#java的内存区域与内存溢出异常" id="markdown-toc-java的内存区域与内存溢出异常">Java的内存区域与内存溢出异常</a></li>
   <li><a href="#垃圾收集器与内存分配策略" id="markdown-toc-垃圾收集器与内存分配策略">垃圾收集器与内存分配策略</a></li>
 </ul>
@@ -43,8 +43,8 @@
 </blockquote>
 
 <p><strong>Java 堆</strong></p>
-<p>对于Java应用程序来说，Java堆（Java Heap）是虚拟机所管理的内存中最大的一块。</p>
 <blockquote>
+  <p>对于Java应用程序来说，Java堆（Java Heap）是虚拟机所管理的内存中最大的一块。</p>
   <p>☞ <font size="3" color="#8B0000">Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。</font>此内存区域的唯一目的就是存放对象实例，Java世界里“几乎”所有的对象实例都在这里分配内存。在《Java虚拟机规范》中对Java堆的描述是：“所有的对象实例以及数组都应当在堆上分配”，但是这里为什么说是“几乎”呢，在《Java虚拟机》里说到随着Java语言的发展，在日后可能会出现值类型的支持，所以渐渐变得没那么绝对了。</p>
   <p>☞ <font size="3" color="#8B0000">Java堆是垃圾收集器管理的内存区域。</font>因此一些资料中它也被称作 “GC堆” （Garbage Collected Heap）</p>
 </blockquote>
@@ -58,10 +58,11 @@
 <hr />
 
 <ul>
-  <li>HotSpot虚拟机对象探秘
-<strong>对象的创建</strong></li>
+  <li>HotSpot虚拟机对象探秘</li>
 </ul>
 
+<p><strong>对象的创建</strong></p>
+<p>码字中...</p>
 <hr />
 
 <h4 id="垃圾收集器与内存分配策略">垃圾收集器与内存分配策略</h4>
