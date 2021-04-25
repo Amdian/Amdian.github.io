@@ -1,0 +1,166 @@
+I"~J<ul id="markdown-toc">
+  <li><a href="#进程和线程的概念" id="markdown-toc-进程和线程的概念">进程和线程的概念</a></li>
+  <li><a href="#生命周期" id="markdown-toc-生命周期">生命周期</a></li>
+  <li><a href="#创建线程的多种方式" id="markdown-toc-创建线程的多种方式">创建线程的多种方式</a></li>
+</ul>
+
+<h3 id="进程和线程的概念">进程和线程的概念</h3>
+<ul>
+  <li>进程（Process）可以定义为“并发执行的程序在一个数据集合上的执行过程”。
+    <ul>
+      <li>进程是一个可以拥有资源的独立单位</li>
+      <li>进程是一个可以独立调度和分配的基本单位。</li>
+    </ul>
+  </li>
+  <li>线程是进程的一个实体，是被独立调度和分派的基本单位，表示进程中的一个控制点，执行一系列指令。</li>
+</ul>
+
+<p><font size="3" color="#8B0000">通俗点讲，就好像一个班级，班级是一个进程，那么这个班级里的学生就是线程了。假设班级有500元，这个班级的学生可以是可以用这个500元的了，具体怎么使用就看班级如何分配。</font></p>
+
+<h3 id="生命周期">生命周期</h3>
+<blockquote>
+  <p>每个Java程序都有一个隐含的主线程，即main()方法。要实现多线程，必须在主线程中创建新的线程。Java语言使用Thread类及子类对象来表示线程，在它的生命周期中，线程会处于4种不同的状态。</p>
+  <p>① New  (新)。</p>
+  <p>② Runnable (可运行)。</p>
+  <p>③ Blocked (被阻塞)。</p>
+  <p>④ Dead（死亡）</p>
+  <p><font size="3" color="#8B0000">附：一个线程从它被创建到停止执行都要经历一个完整的生命周期。</font></p>
+</blockquote>
+
+<p><strong>线程的生命周期图</strong></p>
+
+<p><img src="/static/img/thread_live.jpg" alt="线程的生命周期" width="60%" /></p>
+
+<h3 id="创建线程的多种方式">创建线程的多种方式</h3>
+<ul>
+  <li>继承Thread类</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">public</span> <span class="k">class</span> <span class="nc">First</span> <span class="n">extends</span> <span class="no">Thread</span><span class="p">{</span>
+
+	<span class="no">String</span> <span class="n">threadname</span><span class="p">;</span>
+	<span class="kp">public</span> <span class="no">First</span><span class="p">(</span><span class="no">String</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">" Making thread: "</span><span class="o">+</span> <span class="n">s</span> <span class="p">);</span>
+		<span class="n">threadname</span><span class="o">=</span><span class="n">s</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="kp">public</span> <span class="n">void</span> <span class="n">run</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">" Running thread number="</span> <span class="o">+</span> <span class="n">threadname</span><span class="p">);</span>
+			<span class="n">try</span> <span class="p">{</span>
+				<span class="no">Thread</span><span class="p">.</span><span class="nf">sleep</span><span class="p">((</span><span class="n">int</span><span class="p">)</span><span class="no">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span><span class="o">*</span><span class="mi">1000</span><span class="p">);</span>
+			<span class="p">}</span> <span class="kp">catch</span> <span class="p">(</span><span class="no">InterruptedException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+				<span class="sr">//</span> <span class="no">TODO</span> <span class="no">Auto</span><span class="o">-</span><span class="n">generated</span> <span class="kp">catch</span> <span class="n">block</span>
+				<span class="n">e</span><span class="p">.</span><span class="nf">printStackTrace</span><span class="p">();</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	
+	<span class="kp">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="no">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+		<span class="sr">//</span> <span class="no">TODO</span> <span class="no">Auto</span><span class="o">-</span><span class="n">generated</span> <span class="nb">method</span> <span class="n">stub</span>
+			<span class="no">First</span> <span class="n">thread1</span><span class="o">=</span><span class="n">new</span> <span class="no">First</span><span class="p">(</span><span class="s2">"1号"</span><span class="p">);</span>
+			<span class="no">First</span> <span class="n">thread2</span><span class="o">=</span><span class="n">new</span> <span class="no">First</span><span class="p">(</span><span class="s2">"2号"</span><span class="p">);</span>
+			<span class="n">thread1</span><span class="p">.</span><span class="nf">start</span><span class="p">();</span><span class="sr">//</span><span class="err">启动线程</span>
+			<span class="n">thread2</span><span class="p">.</span><span class="nf">start</span><span class="p">();</span>
+			<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">"End of main!!"</span><span class="p">);</span>
+	<span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>运行结果</p>
+
+<p><img src="/static/img/thread_method.jpg" alt="运行结果" width="50%" /></p>
+
+<ul>
+  <li>实现Runnable接口创建线程</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">public</span> <span class="k">class</span> <span class="nc">Second</span> <span class="n">implements</span> <span class="no">Runnable</span><span class="p">{</span>
+
+	<span class="no">String</span> <span class="n">threadname</span><span class="p">;</span>
+	
+	<span class="kp">public</span> <span class="no">Second</span><span class="p">(</span><span class="no">String</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">" Making thread: "</span><span class="o">+</span> <span class="n">s</span> <span class="p">);</span>
+		<span class="n">threadname</span><span class="o">=</span><span class="n">s</span><span class="p">;</span>
+	<span class="p">}</span>
+	
+	<span class="kp">public</span> <span class="n">void</span> <span class="n">run</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">" Running thread number="</span> <span class="o">+</span> <span class="n">threadname</span><span class="p">);</span>
+			<span class="n">try</span> <span class="p">{</span>
+				<span class="no">Thread</span><span class="p">.</span><span class="nf">sleep</span><span class="p">((</span><span class="n">int</span><span class="p">)</span><span class="no">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span><span class="o">*</span><span class="mi">1000</span><span class="p">);</span>
+			<span class="p">}</span> <span class="kp">catch</span> <span class="p">(</span><span class="no">InterruptedException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+				<span class="sr">//</span> <span class="no">TODO</span> <span class="no">Auto</span><span class="o">-</span><span class="n">generated</span> <span class="kp">catch</span> <span class="n">block</span>
+				<span class="n">e</span><span class="p">.</span><span class="nf">printStackTrace</span><span class="p">();</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	
+	<span class="kp">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="no">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+		<span class="sr">//</span> <span class="no">TODO</span> <span class="no">Auto</span><span class="o">-</span><span class="n">generated</span> <span class="nb">method</span> <span class="n">stub</span>
+			<span class="no">Thread</span> <span class="n">thread1</span><span class="p">,</span><span class="n">thread2</span><span class="p">;</span>
+			<span class="n">thread1</span><span class="o">=</span><span class="n">new</span> <span class="no">Thread</span><span class="p">(</span> <span class="n">new</span> <span class="no">Second</span><span class="p">(</span><span class="s2">"1号"</span><span class="p">));</span><span class="sr">//</span><span class="err">创建线程</span>
+			<span class="n">thread2</span><span class="o">=</span><span class="n">new</span> <span class="no">Thread</span><span class="p">(</span> <span class="n">new</span> <span class="no">Second</span><span class="p">(</span><span class="s2">"2号"</span><span class="p">));</span>
+			<span class="n">thread1</span><span class="p">.</span><span class="nf">start</span><span class="p">();</span><span class="sr">//</span><span class="err">启动线程</span>
+			<span class="n">thread2</span><span class="p">.</span><span class="nf">start</span><span class="p">();</span>
+			<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">"End of main!!"</span><span class="p">);</span>
+	<span class="p">}</span>
+	
+<span class="p">}</span></code></pre></figure>
+
+<p>运行结果</p>
+
+<p><img src="/static/img/thread_method.jpg" alt="运行结果" width="50%" /></p>
+
+<ul>
+  <li>通过Callable和FutureTask创建线程</li>
+  <li>通过线程池创建线程</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="nf">util</span><span class="p">.</span><span class="nf">concurrent</span><span class="o">.</span><span class="no">Callable</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="nf">util</span><span class="p">.</span><span class="nf">concurrent</span><span class="o">.</span><span class="no">ExecutionException</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="nf">util</span><span class="p">.</span><span class="nf">concurrent</span><span class="o">.</span><span class="no">FutureTask</span><span class="p">;</span>
+
+<span class="kp">public</span> <span class="k">class</span> <span class="nc">Four</span> <span class="n">implements</span> <span class="no">Callable</span> <span class="p">{</span><span class="sr">//</span><span class="err">其实这个跟实现</span><span class="no">Runnable</span><span class="err">接口有点类似</span>
+	
+		<span class="no">String</span> <span class="n">threadname</span><span class="p">;</span>
+		
+		<span class="kp">public</span> <span class="no">Four</span><span class="p">(</span><span class="no">String</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">threadname</span><span class="o">=</span><span class="n">s</span><span class="p">;</span>
+		<span class="p">}</span>
+		
+	    <span class="kp">public</span> <span class="no">String</span> <span class="n">call</span><span class="p">(){</span> <span class="sr">//</span> <span class="err">与</span><span class="n">run</span><span class="p">()</span><span class="err">方法不同的是，</span><span class="n">call</span><span class="p">()</span><span class="err">方法具有返回值</span>
+	    	<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">"线程名： "</span><span class="o">+</span><span class="no">Thread</span><span class="p">.</span><span class="nf">currentThread</span><span class="p">().</span><span class="nf">getName</span><span class="p">());</span>
+	    	<span class="k">for</span><span class="p">(</span><span class="n">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">"我是"</span><span class="o">+</span><span class="n">threadname</span><span class="o">+</span><span class="s2">"你好"</span><span class="o">+</span><span class="n">i</span><span class="p">);</span>
+	    	<span class="k">return</span> <span class="n">threadname</span><span class="p">;</span>
+	    <span class="p">}</span>
+	
+    <span class="kp">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="no">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="n">throws</span> <span class="no">InterruptedException</span><span class="p">,</span> <span class="no">ExecutionException</span> <span class="p">{</span>
+    	
+    	<span class="no">Four</span> <span class="n">callableThread1</span> <span class="o">=</span> <span class="n">new</span> <span class="no">Four</span><span class="p">(</span><span class="s2">"小明"</span><span class="p">);</span>
+    	<span class="no">Four</span> <span class="n">callableThread2</span> <span class="o">=</span> <span class="n">new</span> <span class="no">Four</span><span class="p">(</span><span class="s2">"小红"</span><span class="p">);</span>
+    	
+        <span class="sr">//</span><span class="err">使用</span><span class="no">FutureTask</span><span class="err">类来包装</span><span class="no">Callable</span><span class="err">实现类的对象</span><span class="p">,</span> <span class="err">且以此</span><span class="no">FutureTask</span><span class="err">对象作为</span><span class="no">Thread</span><span class="err">对象的</span><span class="n">target</span><span class="err">来创建线程</span><span class="o">.</span>
+        <span class="no">FutureTask</span> <span class="n">futureTask1</span> <span class="o">=</span> <span class="n">new</span> <span class="no">FutureTask</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">callableThread1</span><span class="p">);</span>
+        <span class="n">new</span> <span class="no">Thread</span><span class="p">(</span><span class="n">futureTask1</span><span class="p">).</span><span class="nf">start</span><span class="p">();</span>
+        
+        <span class="no">FutureTask</span> <span class="n">futureTask2</span> <span class="o">=</span> <span class="n">new</span> <span class="no">FutureTask</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">callableThread2</span><span class="p">);</span>
+        <span class="n">new</span> <span class="no">Thread</span><span class="p">(</span><span class="n">futureTask2</span><span class="p">).</span><span class="nf">start</span><span class="p">();</span>
+        
+        <span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">"主线程先做其他重要的事情"</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">futureTask1</span><span class="p">.</span><span class="nf">isDone</span><span class="p">()</span> <span class="o">||</span> <span class="o">!</span><span class="n">futureTask2</span><span class="p">.</span><span class="nf">isDone</span><span class="p">()){</span>
+            <span class="sr">//</span> <span class="err">继续做其他事儿</span>
+        	<span class="k">for</span><span class="p">(</span><span class="n">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="s2">"主线程在看书"</span><span class="p">);</span>
+        	<span class="p">}</span>
+        <span class="p">}</span>
+        <span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">futureTask1</span><span class="p">.</span><span class="nf">get</span><span class="p">());</span> <span class="sr">//</span> <span class="err">可能会阻塞等待结果</span>
+        <span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">futureTask2</span><span class="p">.</span><span class="nf">get</span><span class="p">());</span> 
+    <span class="p">}</span>	
+<span class="p">}</span></code></pre></figure>
+
+<p>运行结果</p>
+
+<p><img src="/static/img/thread_method.jpg" alt="运行结果" width="50%" />
+…..正在码字</p>
+:ET
