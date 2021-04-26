@@ -1,0 +1,32 @@
+I"^<ul id="markdown-toc">
+  <li><a href="#php标记" id="markdown-toc-php标记">php标记</a></li>
+  <li><a href="#php编码规范" id="markdown-toc-php编码规范">php编码规范</a></li>
+</ul>
+
+<h3 id="php标记">php标记</h3>
+<p>所谓标记，就是为了便于与其它内容区分所使用的一种特殊标记，PHP共支持4种标记风格。</p>
+
+<p><img src="/static/img/php/2.jpg" alt="php标记" width="80%" /></p>
+
+<h3 id="php编码规范">php编码规范</h3>
+<ul>
+  <li>书写规范</li>
+</ul>
+<p>①缩进</p>
+<p>☞ 使用制表符（<Tab>键）缩进，缩进单位为4个空格左右。</Tab></p>
+<p>②大括号{}</p>
+<p>☞ 两种大括号放置规则：
+    if ($expr)              if ($expr){
+    {
+        …           or 
+        …
+    }                       }</p>
+
+<p><img src="/static/img/php/3.jpg" alt="php标记" width="80%" /></p>
+
+<p>③关键字、小括号、函数、运算符</p>
+<p>☞ 空格隔开小括号和关键字</p>
+<p>☞ 小括号和函数要紧贴</p>
+<p>☞ 运算符与两边的变量或表达式要有一个空格（字符连接运算符“.”除外）。</p>
+
+:ET

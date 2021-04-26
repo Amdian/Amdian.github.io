@@ -1,0 +1,17 @@
+I"!<ul id="markdown-toc">
+  <li><a href="#php概述" id="markdown-toc-php概述">PHP概述</a></li>
+  <li><a href="#php环境搭配" id="markdown-toc-php环境搭配">PHP环境搭配</a></li>
+</ul>
+
+<h3 id="php概述">PHP概述</h3>
+<p><img src="/static/img/php/php_gaikuo.jpg" alt="php概述" width="80%" /></p>
+
+<p><img src="/static/img/php/kuo1.jpg" alt="php概述" width="80%" /></p>
+
+<h3 id="php环境搭配">PHP环境搭配</h3>
+<p>客户端浏览器向Apache服务器发送请求指定页面例如test.php
+Apache服务器得到客户端请求后，查找test.php页面
+Apache服务器调用php解释器将php脚本解释成为客户端代码HTML
+Apache服务器将解释之后的页面发送给客户端浏览器
+客户端浏览器对html代码进行解释执行，用户看到请求的页面</p>
+:ET

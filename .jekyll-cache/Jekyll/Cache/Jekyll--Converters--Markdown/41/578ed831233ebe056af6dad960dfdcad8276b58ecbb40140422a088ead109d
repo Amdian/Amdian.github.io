@@ -1,0 +1,74 @@
+I"
+<ul id="markdown-toc">
+  <li><a href="#php标记" id="markdown-toc-php标记">php标记</a></li>
+  <li><a href="#php编码规范" id="markdown-toc-php编码规范">php编码规范</a></li>
+</ul>
+
+<h3 id="php标记">php标记</h3>
+<p>所谓标记，就是为了便于与其它内容区分所使用的一种特殊标记，PHP共支持4种标记风格。</p>
+
+<p><img src="/static/img/php/2.jpg" alt="php标记" width="80%" /></p>
+
+<h3 id="php编码规范">php编码规范</h3>
+<ul>
+  <li>书写规范</li>
+</ul>
+<p>①缩进</p>
+<p>☞ 使用制表符（<Tab>键）缩进，缩进单位为4个空格左右。</Tab></p>
+<p>②大括号{}</p>
+<p>☞ 两种大括号放置规则：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ($expr)               if ($expr){
+{
+    ...          或者            ...
+    ...                     ...
+}                        }
+</code></pre></div></div>
+
+<p>③关键字、小括号、函数、运算符</p>
+<p>☞ 空格隔开小括号和关键字</p>
+<p>☞ 小括号和函数要紧贴</p>
+<p>☞ 运算符与两边的变量或表达式要有一个空格（字符连接运算符“.”除外）。</p>
+
+<p><br /></p>
+
+<ul>
+  <li>命名规范</li>
+</ul>
+
+<p>(1)类命名
+使用大写字母作为词的分隔，其他的字母均小写。名字的首字母使用大写。不要使用下划线(‘_’)。如：Name、SuperMan、BigClassObject。</p>
+
+<p>(2)类属性命名
+以字符“m”为前缀。前缀“m”后采用与类命名一致的规则。如：mValue、mLongString等。</p>
+
+<p>(3)方法命名
+名称应该说明方法是做什么。前缀和后缀有一定的规律，如：Is（判断）</p>
+
+<p>(4)方法中参数命名
+第一个字符小写。首字符后的所有字符按照首字符大写规则。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class EchoAnyWord{
+    function EchoWord($firstWord，$secondWord){
+        …
+    }   
+}
+</code></pre></div></div>
+
+<p>(5)变量命名
+所有字母都使用小写。使用下划线作为每个词的分界。如：$msg_error、$chk_pwd等。</p>
+
+<p>(6)引用变量	带“r”前缀。如：$rExam</p>
+
+<p>(7)全局变量	带“g”前缀。如：global = $gTest</p>
+
+<p>(8)常量/全局常量
+全部使用大写字母，单词之间用’_‘来分隔。如：define(‘DEFAULT_NUM_AVE’,90);</p>
+
+<p>(9)静态变量 
+带前缀“s”。如：static $sStatus = 1;</p>
+
+<p>(10)函数命名
+使用小写字母，使用“_”来分割。如：</p>
+
+:ET
