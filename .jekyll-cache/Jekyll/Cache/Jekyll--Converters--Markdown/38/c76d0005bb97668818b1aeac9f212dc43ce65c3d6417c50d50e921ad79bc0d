@@ -1,0 +1,20 @@
+I"�<ul id="markdown-toc">
+  <li><a href="#图解" id="markdown-toc-图解">图解</a></li>
+</ul>
+
+<h4 id="图解">图解</h4>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="kp">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="no">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+		<span class="sr">//</span> <span class="no">TODO</span> <span class="no">Auto</span><span class="o">-</span><span class="n">generated</span> <span class="nb">method</span> <span class="n">stub</span>
+		<span class="no">String</span> <span class="n">a</span><span class="o">=</span><span class="s2">"小明"</span><span class="p">;</span>
+		<span class="no">String</span> <span class="n">b</span><span class="o">=</span><span class="s2">"小明"</span><span class="p">;</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="n">b</span><span class="p">);</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">true</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="nf">equals</span><span class="p">(</span><span class="n">b</span><span class="p">));</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">true</span>
+		
+		<span class="no">String</span> <span class="n">c</span> <span class="o">=</span> <span class="n">new</span> <span class="no">String</span><span class="p">(</span><span class="s2">"小明"</span><span class="p">);</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="n">c</span><span class="p">);</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">false</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">b</span><span class="o">==</span><span class="n">c</span><span class="p">);</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">false</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="nf">equals</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">true</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="nf">equals</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">true</span>
+	<span class="p">}</span></code></pre></figure>
+:ET

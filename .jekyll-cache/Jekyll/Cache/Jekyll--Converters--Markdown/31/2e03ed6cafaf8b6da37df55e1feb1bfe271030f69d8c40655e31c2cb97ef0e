@@ -1,0 +1,41 @@
+I"k<ul id="markdown-toc">
+  <li><a href="#一图胜千言" id="markdown-toc-一图胜千言">一图胜千言</a></li>
+  <li><a href="#实战" id="markdown-toc-实战">实战</a></li>
+  <li><a href="#探索谜团" id="markdown-toc-探索谜团">探索谜团</a></li>
+</ul>
+
+<h4 id="一图胜千言">一图胜千言</h4>
+<p><img src="/static/img/java/2.jpg" align="left" /><br /></p>
+
+<hr />
+
+<h4 id="实战">实战</h4>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="kp">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="no">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+		<span class="sr">//</span> <span class="no">TODO</span> <span class="no">Auto</span><span class="o">-</span><span class="n">generated</span> <span class="nb">method</span> <span class="n">stub</span>
+		<span class="no">String</span> <span class="n">a</span><span class="o">=</span><span class="s2">"小明"</span><span class="p">;</span>
+		<span class="no">String</span> <span class="n">b</span><span class="o">=</span><span class="s2">"小明"</span><span class="p">;</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="n">b</span><span class="p">);</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">true</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="nf">equals</span><span class="p">(</span><span class="n">b</span><span class="p">));</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">true</span>
+		
+		<span class="no">String</span> <span class="n">c</span> <span class="o">=</span> <span class="n">new</span> <span class="no">String</span><span class="p">(</span><span class="s2">"小明"</span><span class="p">);</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="n">c</span><span class="p">);</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">false</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">b</span><span class="o">==</span><span class="n">c</span><span class="p">);</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">false</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="nf">equals</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">true</span>
+		<span class="no">System</span><span class="p">.</span><span class="nf">out</span><span class="p">.</span><span class="nf">println</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="nf">equals</span><span class="p">(</span><span class="n">c</span><span class="p">));</span><span class="sr">//</span><span class="err">结果为</span><span class="kp">true</span>
+	<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<h4 id="探索谜团">探索谜团</h4>
+
+<p>为什么在第一个例子中，用==的时候都为true，而在第二例子中，==却是false ?</p>
+<blockquote>
+  <p>其实，在java中会有一个字符串池。假如字符串池里面已经有一个String对象的值为 “小明” 时， 那么当你再次定义一个String类型的对象，然后直接给它赋值为“小明”时，字符串池会默认两个对象的引用所指向的是同一个东西(相当于指向同一个地址)，那么就不会创建新的对象了，因此在第一个例子中为什么用==会true，因为它们都是指向同一个东西，所以会返回true。</p>
+</blockquote>
+<p>但是我们再来看第二例子，第二个有点不同的是，用了new来创建了新的对象，因此在字符串池中就会有两个对象，两个对象的值都一样，但是地址不同。所以用==就返回false。</p>
+<p>因此我们可以总结一下 <p>
+== 是可以用判断两个是否为同一个对象 或者对于基本的数据类型的值是否相等。
+equals 则可以用来判断值是否相等，不管两个是否为同一个对象，只要值相等，那么则返回true
+</p></p>
+:ET
