@@ -1,10 +1,10 @@
-I"�B<ul id="markdown-toc">
+I"�D<ul id="markdown-toc">
   <li><a href="#时间复杂度和空间复杂度" id="markdown-toc-时间复杂度和空间复杂度">时间复杂度和空间复杂度</a></li>
   <li><a href="#冒泡排序蛮力法" id="markdown-toc-冒泡排序蛮力法">冒泡排序（蛮力法）</a></li>
   <li><a href="#选择排序蛮力法" id="markdown-toc-选择排序蛮力法">选择排序（蛮力法）</a></li>
   <li><a href="#插入排序减治法" id="markdown-toc-插入排序减治法">插入排序（减治法）</a></li>
-  <li><a href="#希尔排序" id="markdown-toc-希尔排序">希尔排序</a></li>
-  <li><a href="#归并排序" id="markdown-toc-归并排序">归并排序</a></li>
+  <li><a href="#希尔排序分治法" id="markdown-toc-希尔排序分治法">希尔排序（分治法）</a></li>
+  <li><a href="#归并排序分治法" id="markdown-toc-归并排序分治法">归并排序（分治法）</a></li>
 </ul>
 
 <p>本博客的全部算法文章为原创，如需转换请备注转发链接谢谢~~~</p>
@@ -108,7 +108,7 @@
 
 <hr />
 
-<h3 id="希尔排序">希尔排序</h3>
+<h3 id="希尔排序分治法">希尔排序（分治法）</h3>
 
 <p>希尔排序（Shell’s Sort）是插入排序的一种又称“缩小增量排序”，是直接插入排序算法的一种更高效的改进版本。希尔排序是非常稳定排序算法。该方法因 D.L.Shell 于 1959 年提出而得名。</p>
 
@@ -295,8 +295,15 @@
 
 <hr />
 
-<h3 id="归并排序">归并排序</h3>
+<h3 id="归并排序分治法">归并排序（分治法）</h3>
 
-<p><img src="/static/img/sorts/3.gif" alt="3" width="50%" /></p>
+<p>归并排序（MergeSort）过程如下：</p>
 
+<p><img src="/static/img/sorts/6.gif" alt="6" width="50%" /></p>
+
+<p>思想：归并排序首先执行划分过程，将序列划分为两个序列，如果序列为1则划分结束，否则继续划分，然后将已有序的子序列合并，得到完全有序的序列。</p>
+
+<p>代码如下：</p>
+
+<p>码字中ing…莫得办法，高质量的博客的就得时间</p>
 :ET

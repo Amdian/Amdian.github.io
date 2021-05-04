@@ -13,9 +13,6 @@ description: Xizhi's Ideas & Blogs
 github_username: Amdian
 permalink: /:year/:month/:day/:title/
 
-paginate: 5
-paginate_path: "page:num"
-
 #########################################
 # for duoshuo.com commenting system, uncomment following line if you do not want to include duoshuo.com. 
 #duoshuo_shortname: lixizhi
