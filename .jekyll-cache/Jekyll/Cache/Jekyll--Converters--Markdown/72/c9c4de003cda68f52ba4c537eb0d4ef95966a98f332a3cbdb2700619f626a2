@@ -1,4 +1,4 @@
-I"+~<ul id="markdown-toc">
+I"�<ul id="markdown-toc">
   <li><a href="#时间复杂度和空间复杂度" id="markdown-toc-时间复杂度和空间复杂度">时间复杂度和空间复杂度</a></li>
   <li><a href="#冒泡排序蛮力法" id="markdown-toc-冒泡排序蛮力法">冒泡排序（蛮力法）</a></li>
   <li><a href="#选择排序蛮力法" id="markdown-toc-选择排序蛮力法">选择排序（蛮力法）</a></li>
@@ -365,11 +365,10 @@
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">int</span> <span class="n">q</span><span class="p">[],</span> <span class="n">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">int</span> <span class="n">r</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-
+    <span class="n">int</span> <span class="n">tmp</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
     <span class="n">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">r</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
     <span class="n">merge_sort</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
     <span class="n">merge_sort</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
-
     <span class="n">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">mid</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">q</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="n">tmp</span><span class="p">[</span><span class="n">k</span> <span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span> <span class="o">++</span> <span class="p">];</span>
@@ -389,34 +388,85 @@
 
 <p><img src="/static/img/sorts/7.gif" alt="7" width="60%" /></p>
 
-<p>思想：
-void quick_sort(int q[], int l, int r)
-{
-    if (l &gt;= r) return;</p>
+<p>思想：先从数列中取出一个数作为基准数。分区过程，将比这个数大的数全放到它的右边，小于或等于它的数全放到它的左边。再对左右区间重复第二步，直到各区间只有一个数。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int i = l - 1, j = r + 1, x = q[l + r &gt;&gt; 1];
-while (i &lt; j)
-{
-    do i ++ ; while (q[i] &lt; x);
-    do j -- ; while (q[j] &gt; x);
-    if (i &lt; j) swap(q[i], q[j]);
-}
-quick_sort(q, l, j), quick_sort(q, j + 1, r); }
-</code></pre></div></div>
+<p>代码如下：</p>
 
-<p>作者：yxc
-链接：https://www.acwing.com/blog/content/277/
-来源：AcWing
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-—</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">int</span> <span class="n">q</span><span class="p">[],</span> <span class="n">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">int</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="n">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">q</span><span class="p">[</span> <span class="o">++</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="o">--</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">)</span> <span class="n">swap</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">quick_sort</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
 
 <h3 id="堆排序分治法">堆排序（分治法）</h3>
+
+<p><strong>堆的定义：</strong></p>
+
+<p>堆：完全二叉树 + 满足某种条件。父亲结点比左右儿子小（小根堆）或 父亲结点比左右儿子大（大根堆），一般升序用大根堆，降序用小根堆，自己画，自己想象。</p>
+
+<p>堆（heap）有时被称为优先队列（priority queue）。堆和队列有相似地方，在堆底插入元素，在堆顶取出元素，但是堆中元素的排列不是按照到来的先后顺序，而是按照一定的优先顺序排列的</p>
+
+<p><strong>堆排序思想</strong>：</p>
+
+<p>堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
+
+<p>如果不太了解堆排序的可以看<a href="https://www.cnblogs.com/jingmoxukong/p/4303826.html">这篇文章</a>，这篇是我看对比了这么多博客之后，还是不错的。</p>
 
 <p>过程如下：</p>
 
 <p><img src="/static/img/sorts/9.gif" alt="9" width="60%" /></p>
 
-<p><img src="/static/img/sorts/10.gif" alt="9" width="60%" /></p>
+<p>模板代码如下（来自y总）：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">h</span><span class="p">[</span><span class="no">N</span><span class="p">]</span><span class="err">存储堆中的值</span><span class="p">,</span> <span class="n">h</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="err">是堆顶，</span><span class="n">x</span><span class="err">的左儿子是</span><span class="mi">2</span><span class="n">x</span><span class="p">,</span> <span class="err">右儿子是</span><span class="mi">2</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">ph</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="err">存储第</span><span class="n">k</span><span class="err">个插入的点在堆中的位置</span>
+<span class="n">hp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="err">存储堆中下标是</span><span class="n">k</span><span class="err">的点是第几个插入的</span>
+
+<span class="n">int</span> <span class="n">h</span><span class="p">[</span><span class="no">N</span><span class="p">],</span> <span class="n">ph</span><span class="p">[</span><span class="no">N</span><span class="p">],</span> <span class="n">hp</span><span class="p">[</span><span class="no">N</span><span class="p">],</span> <span class="n">size</span><span class="p">;</span>
+
+<span class="err">交换两个点，及其映射关系</span>
+<span class="n">void</span> <span class="n">heap_swap</span><span class="p">(</span><span class="n">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">ph</span><span class="p">[</span><span class="n">hp</span><span class="p">[</span><span class="n">a</span><span class="p">]],</span><span class="n">ph</span><span class="p">[</span><span class="n">hp</span><span class="p">[</span><span class="n">b</span><span class="p">]]);</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">hp</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">hp</span><span class="p">[</span><span class="n">b</span><span class="p">]);</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">h</span><span class="p">[</span><span class="n">b</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="n">down</span><span class="p">(</span><span class="n">int</span> <span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">&amp;&amp;</span> <span class="n">h</span><span class="p">[</span><span class="n">u</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="n">t</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">&amp;&amp;</span> <span class="n">h</span><span class="p">[</span><span class="n">u</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="n">t</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">heap_swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+        <span class="n">down</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="n">up</span><span class="p">(</span><span class="n">int</span> <span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">u</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">h</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">u</span> <span class="o">/</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="p">{</span>
+        <span class="n">heap_swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="n">u</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="no">O</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="err">建堆</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">--</span> <span class="p">)</span> <span class="n">down</span><span class="p">(</span><span class="n">i</span><span class="p">);</span></code></pre></figure>
+
+<p>总的来说，就是要先建个初始堆，然后就进行堆排序</p>
 
 <hr />
 
@@ -425,6 +475,8 @@ quick_sort(q, l, j), quick_sort(q, j + 1, r); }
 <p>过程如下：</p>
 
 <p><img src="/static/img/sorts/8.gif" alt="8" width="60%" /></p>
+
+<p>貌似只能0~9，其他情况需要具体分析，这里就不写代码了.</p>
 
 <p>码字中ing…莫得办法，高质量的博客的就得时间</p>
 :ET
