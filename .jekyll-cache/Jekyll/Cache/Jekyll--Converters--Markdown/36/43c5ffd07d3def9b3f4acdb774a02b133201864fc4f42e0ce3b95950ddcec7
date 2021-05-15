@@ -1,0 +1,10 @@
+I"&<h2>非淡泊无以明志，非宁静无以致远。</h2>
+
+<audio controls="controls">
+  <source src="song.mp3" type="audio/mp3" />
+  <source src="song.ogg" type="audio/ogg" />
+Your browser does not support this audio format.
+</audio>
+<embed height="200" width="500" src="/static/Home.mp3" />
+
+:ET
