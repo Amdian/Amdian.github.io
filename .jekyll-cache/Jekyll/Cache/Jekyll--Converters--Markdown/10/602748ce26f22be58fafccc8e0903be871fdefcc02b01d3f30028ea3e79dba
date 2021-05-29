@@ -1,0 +1,13 @@
+I"�
+<h3 id="网络编程">网络编程</h3>
+
+<p>(1) URL访问网络信息，如何获取网络输入流进行读的操作；</p>
+
+<p><img src="/static/img/2021exam/1.jpg" alt="1" width="70%" /></p>
+
+<hr />
+
+<p>(2) URLConnection接收发送网络信息，如何获取网络输入流把网络的内容读入到内存，如何获取网络输出流，把本地内容写向网络；</p>
+
+<p><img src="/static/img/2021exam/2.jpg" alt="2" width="70%" /></p>
+:ET
