@@ -1,0 +1,107 @@
+I"�$<ul id="markdown-toc">
+  <li><a href="#概念" id="markdown-toc-概念">概念</a></li>
+  <li><a href="#prim算法点" id="markdown-toc-prim算法点">prim算法（点）</a></li>
+  <li><a href="#kruskal克鲁斯卡尔算法边" id="markdown-toc-kruskal克鲁斯卡尔算法边">(kruskal)克鲁斯卡尔算法（边）</a></li>
+</ul>
+
+<h4 id="概念">概念</h4>
+
+<p>在无向图中，<font size="4" color="#800080">连通而且不含有圈（环路）的图</font>称为树。所以下面的两种算法中的重要问题是判断圈，即每次的新加入一个点或者边的同时又要判断是否形成圈。Prim算法适用于稠密图，Kruskal适用于稀疏图。</p>
+
+<p>接来下将一下prim算法和kruskal算法，这两种算法都基于贪心法，因为最小生成树（Minimal Spanning Tree，MST）问题满足贪心法的 “最优性原理” ，即全局最优包含局部最优。</p>
+
+<hr />
+
+<h4 id="prim算法点">prim算法（点）</h4>
+
+<p>思想：对点进行贪心操作。从任意一个点 u 开始，把距离它最近的点 v 加入到 T 中；下一步，把距离 {u , v}最近的点 w 加入到 T 中；继续这个过程，直到所有的点都在 T 中。</p>
+
+<p>过程如下：</p>
+
+<p><img src="/static/img/algorithm/5.jpg" alt="5" width="90%" /></p>
+
+<p>教科书代码如下</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">lowcost</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">adjvex</span><span class="p">;</span>
+<span class="p">}</span><span class="n">Element</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">Prim</span><span class="p">(</span><span class="kt">int</span> <span class="n">arc</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">n</span><span class="p">],</span><span class="kt">int</span> <span class="n">w</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">Min</span><span class="p">;</span>
+    <span class="n">Element</span> <span class="n">shortEdge</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="c1">// 初始化起点到其他的点的权值</span>
+    <span class="p">{</span>
+        <span class="n">shortEdge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">lowcost</span><span class="o">=</span><span class="n">arc</span><span class="p">[</span><span class="n">w</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">shortEdge</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">adjvex</span><span class="o">=</span><span class="n">w</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">shortEdge</span><span class="p">[</span><span class="n">w</span><span class="p">].</span><span class="n">lowcost</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Min</span><span class="o">=</span><span class="mi">100</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">((</span><span class="n">shortEdge</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">lowcost</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">shortEdge</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">lowcost</span> <span class="o">&lt;</span> <span class="n">Min</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">Min</span><span class="o">=</span><span class="n">shortEdge</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">lowcost</span><span class="p">;</span>
+                <span class="n">k</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="n">shortEdge</span><span class="p">[</span><span class="n">k</span><span class="p">].</span><span class="n">adjvex</span><span class="o">&lt;&lt;</span><span class="s">"--"</span><span class="o">&lt;&lt;</span> <span class="n">k</span><span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">shortEdge</span><span class="p">[</span><span class="n">k</span><span class="p">].</span><span class="n">lowcost</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="c1">//更新数组</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">arc</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span> <span class="n">shortEdge</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">lowcost</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">shortEdge</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">lowcost</span><span class="o">=</span><span class="n">arc</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+                <span class="n">shortEdge</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">adjvex</span><span class="o">=</span><span class="n">k</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<hr />
+
+<h4 id="kruskal克鲁斯卡尔算法边">(kruskal)克鲁斯卡尔算法（边）</h4>
+
+<p>思想：对边进行贪心操作。从最短的边开始，把它加入到 T 中；在剩下的边中找最短的边，加入到 T 中；继续这个过程，直到所有边都在 T 中。</p>
+
+<p>过程如下：</p>
+
+<p><img src="/static/img/algorithm/6.jpg" alt="6" width="90%" /></p>
+
+<p><strong>kruskal算法编程有以下两个关键技术</strong></p>
+
+<blockquote>
+  <p>① 对边进行排序。可以用STL的sort()函数，排序后，依次把最短的边加入到 T 中。</p>
+
+  <p>② 判断圈，即处理连通性问题。这个问题用并查集简单而高效，并查集是kruskal算法的绝配。</p>
+</blockquote>
+
+<p>kruskal 代码如下：</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>kruskal + 并查集 的代码如下(hdu 1233)：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+</code></pre></div></div>
+
+<p>附题：</p>
+
+<p>题链接： <a href="https://www.luogu.com.cn/problem/P3366">落谷P3366-最小生成树模版</a></p>
+
+<p>AC代码： <a href="/static/code/落谷p3366_1.md">落谷p3366-prim代码1</a>、<a href="/static/code/落谷p3366_2.md">落谷p3366-prim代码2</a></p>
+
+<hr />
+
+<p>题链接： <a href="http://acm.hdu.edu.cn/showproblem.php?pid=1233">hdu-1223模版题</a></p>
+
+<p>AC代码： <a href="/static/code/hdu1233_1.md">hdu-1233-prim代码1</a>、<a href="/static/code/hdu1233_2.md">hdu-1233-prim代码2</a></p>
+:ET
