@@ -1,4 +1,4 @@
-I"�l<p>题链接： <a href="http://acm.hdu.edu.cn/showproblem.php?pid=1233">hdu-1223模版题</a></p>
+I"�m<p>题链接： <a href="http://acm.hdu.edu.cn/showproblem.php?pid=1233">hdu-1223模版题</a></p>
 
 <p>Ac代码：</p>
 
@@ -106,7 +106,7 @@
     <span class="n">memset</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span> <span class="k">sizeof</span> <span class="n">dist</span><span class="p">);</span>
     <span class="n">memset</span><span class="p">(</span><span class="n">st</span><span class="p">,</span><span class="nb">false</span><span class="p">,</span><span class="k">sizeof</span> <span class="n">st</span><span class="p">);</span>
     <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span> <span class="p">)</span><span class="c1">//这里是逆向的求最小生成树，如果有些题目要求从第一个节点开始，则可以把循环修改一下，这里的i=0的时候，就是进行初始化</span>
     <span class="p">{</span>
         <span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span> <span class="o">++</span> <span class="p">)</span>
