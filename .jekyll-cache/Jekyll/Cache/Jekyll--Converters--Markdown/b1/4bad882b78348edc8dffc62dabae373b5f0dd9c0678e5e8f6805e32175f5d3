@@ -1,4 +1,4 @@
-I"ML<ul id="markdown-toc">
+I"JL<ul id="markdown-toc">
   <li><a href="#概念" id="markdown-toc-概念">概念</a></li>
   <li><a href="#prim算法点" id="markdown-toc-prim算法点">prim算法（点）</a></li>
   <li><a href="#kruskal克鲁斯卡尔算法边" id="markdown-toc-kruskal克鲁斯卡尔算法边">(kruskal)克鲁斯卡尔算法（边）</a></li>
@@ -137,7 +137,7 @@
 <span class="kt">int</span> <span class="nf">kruskal</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="c1">//初始化，开始时每个村庄都是单独的集</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="c1">//初始化，开始时每个点都是单独的集</span>
     <span class="n">sort</span><span class="p">(</span><span class="n">edge</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">edge</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="n">m</span><span class="p">,</span><span class="n">cmp</span><span class="p">);</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="p">{</span>
@@ -155,9 +155,9 @@
 
 <p>附题：</p>
 
-<p><a href="/2021/05/30/hdu1233/">落谷P3366-最小生成树模版</a></p>
+<p><a href="/2021/05/30/hdu1233/">hdu-1223模版题</a></p>
 
-<p><a href="/2021/05/30/%E6%B4%9B%E8%B0%B7p3366/">hdu-1223模版题</a></p>
+<p><a href="/2021/05/30/%E6%B4%9B%E8%B0%B7p3366/">落谷P3366-最小生成树模版</a></p>
 
 <p><a href="/2021/05/30/leetcode1584/">leetcode1584</a></p>
 
