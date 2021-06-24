@@ -1,0 +1,204 @@
+I"�><ul id="markdown-toc">
+  <li><a href="#redis-事务的基本使用" id="markdown-toc-redis-事务的基本使用">Redis 事务的基本使用</a></li>
+  <li><a href="#原子性" id="markdown-toc-原子性">原子性</a></li>
+  <li><a href="#discard丢弃" id="markdown-toc-discard丢弃">discard（丢弃）</a></li>
+  <li><a href="#优化" id="markdown-toc-优化">优化</a></li>
+  <li><a href="#watch" id="markdown-toc-watch">Watch</a></li>
+</ul>
+
+<h4 id="redis-事务的基本使用">Redis 事务的基本使用</h4>
+
+<p>每个事务的操作都有 begin、commit 和 rollback，begin 指示事务的开始，commit 指示事务的提交，rollback 指示事务的回滚。它大致的形式如下。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">begin</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+ <span class="n">command1</span><span class="o">();</span>
+ <span class="n">command2</span><span class="o">();</span>
+ <span class="o">....</span>
+ <span class="n">commit</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+ <span class="n">rollback</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Redis 在形式上看起来也差不多，分别是 multi/exec/discard。multi 指示事务的开始，exec 指示事务的执行，discard 指示事务的丢弃。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">multi</span>
+<span class="no">OK</span>
+<span class="o">&gt;</span> <span class="n">incr</span> <span class="n">books</span>
+<span class="no">QUEUED</span>
+<span class="o">&gt;</span> <span class="n">incr</span> <span class="n">books</span>
+<span class="no">QUEUED</span>
+<span class="o">&gt;</span> <span class="n">exec</span>
+<span class="o">(</span><span class="n">integer</span><span class="o">)</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>上面的指令演示了一个完整的事务过程，所有的指令在 exec 之前不执行，而是缓存在服务器的一个事务队列中，服务器一旦收到 exec 指令，才开执行整个事务队列，执行完毕后一次性返回所有指令的运行结果。因为 Redis 的单线程特性，它不用担心自己在执行队列的时候被其它指令打搅，可以保证他们能得到的「原子性」执行。</p>
+<p>上图显示了以上事务过程完整的交互效果。QUEUED 是一个简单字符串，同 OK 是一个形式，它表示指令已经被服务器缓存到队列里了。</p>
+
+<hr />
+
+<h4 id="原子性">原子性</h4>
+
+<p>事务的原子性是指要么事务全部成功，要么全部失败，那么Redis 事务执行是原子性的么？</p>
+
+<p>下面我们来看一个特别的例子。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">multi</span>
+<span class="no">OK</span>
+<span class="o">&gt;</span> <span class="n">set</span> <span class="n">books</span> <span class="n">iamastring</span>
+<span class="no">QUEUED</span>
+<span class="o">&gt;</span> <span class="n">incr</span> <span class="n">books</span>
+<span class="no">QUEUED</span>
+<span class="o">&gt;</span> <span class="n">set</span> <span class="n">poorman</span> <span class="n">iamdesperate</span>
+<span class="no">QUEUED</span>
+<span class="o">&gt;</span> <span class="n">exec</span>
+<span class="mi">1</span><span class="o">)</span> <span class="no">OK</span>
+<span class="mi">2</span><span class="o">)</span> <span class="o">(</span><span class="n">error</span><span class="o">)</span> <span class="no">ERR</span> <span class="n">value</span> <span class="n">is</span> <span class="n">not</span> <span class="n">an</span> <span class="n">integer</span> <span class="n">or</span> <span class="n">out</span> <span class="n">of</span> <span class="n">range</span>
+<span class="mi">3</span><span class="o">)</span> <span class="no">OK</span>
+<span class="o">&gt;</span> <span class="n">get</span> <span class="n">books</span>
+<span class="s">"iamastring"</span>
+<span class="o">&gt;</span> <span class="n">get</span> <span class="n">poorman</span>
+<span class="err">"</span><span class="n">iamdesperate</span>
+</code></pre></div></div>
+
+<p>上面的例子是事务执行到中间遇到失败了，因为我们不能对一个字符串进行数学运算，事务在遇到指令执行失败后，后面的指令还继续执行，所以 poorman 的值能继续得到设置。</p>
+<p>到这里，你应该明白 Redis 的事务根本不能算「原子性」，而仅仅是满足了事务的「隔离性」，隔离性中的串行化——当前执行的事务有着不被其它事务打断的权利。</p>
+
+<hr />
+
+<h4 id="discard丢弃">discard（丢弃）</h4>
+
+<p>Redis 为事务提供了一个 discard 指令，用于丢弃事务缓存队列中的所有指令，在 exec 执行之前。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">get</span> <span class="nf">books</span>
+<span class="o">(</span><span class="n">nil</span><span class="o">)</span>
+<span class="o">&gt;</span> <span class="n">multi</span>
+<span class="no">OK</span>
+<span class="o">&gt;</span> <span class="n">incr</span> <span class="n">books</span>
+<span class="no">QUEUED</span>
+<span class="o">&gt;</span> <span class="n">incr</span> <span class="n">books</span>
+<span class="no">QUEUED</span>
+<span class="o">&gt;</span> <span class="n">discard</span>
+<span class="no">OK</span>
+<span class="o">&gt;</span> <span class="n">get</span> <span class="nf">books</span>
+<span class="o">(</span><span class="n">nil</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>我们可以看到 discard 之后，队列中的所有指令都没执行，就好像 multi 和 discard 中间的所有指令从未发生过一样</p>
+
+<hr />
+
+<h4 id="优化">优化</h4>
+
+<p>上面的 Redis 事务在发送每个指令到事务缓存队列时都要经过一次网络读写，当一个事务内部的指令较多时，需要的网络 IO 时间也会线性增长。所以通常 Redis 的客户端在执行事务时都会结合 pipeline 一起使用，这样可以将多次 IO 操作压缩为单次 IO 操作。比如我们在使用 Python 的 Redis 客户端时执行事务时是要强制使用 pipeline 的。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipe</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">pipeline</span><span class="p">(</span><span class="n">transaction</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
+<span class="n">pipe</span><span class="p">.</span><span class="n">multi</span><span class="p">()</span>
+<span class="n">pipe</span><span class="p">.</span><span class="n">incr</span><span class="p">(</span><span class="s">"books"</span><span class="p">)</span>
+<span class="n">pipe</span><span class="p">.</span><span class="n">incr</span><span class="p">(</span><span class="s">"books"</span><span class="p">)</span>
+<span class="n">values</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">.</span><span class="n">execute</span><span class="p">()</span>
+</code></pre></div></div>
+
+<hr />
+
+<h4 id="watch">Watch</h4>
+
+<p>考虑到一个业务场景，Redis 存储了我们的账户余额数据，它是一个整数。现在有两个并发的客户端要对账户余额进行修改操作，这个修改不是一个简单的 incrby 指令，而是要对余额乘以一个倍数。Redis 可没有提供 multiplyby 这样的指令。我们需要先取出余额然后在内存里乘以倍数，再将结果写回 Redis。</p>
+<p>这就会出现并发问题，因为有多个客户端会并发进行操作。我们可以通过 Redis 的分布式锁来避免冲突，这是一个很好的解决方案。<strong>分布式锁是一种悲观锁，那是不是可以使用乐观锁的方式来解决冲突呢？</strong></p>
+<p>Redis 提供了这种 watch 的机制，它就是一种乐观锁。有了 watch 我们又多了一种可以
+用来解决并发修改的方法。 watch 的使用方式如下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="nl">True:</span>
+ <span class="n">do_watch</span><span class="o">()</span>
+ <span class="n">commands</span><span class="o">()</span>
+ <span class="n">multi</span><span class="o">()</span>
+ <span class="n">send_commands</span><span class="o">()</span>
+ <span class="k">try</span><span class="o">:</span>
+ <span class="n">exec</span><span class="o">()</span>
+ <span class="k">break</span>
+ <span class="n">except</span> <span class="nl">WatchError:</span>
+ <span class="k">continue</span>
+</code></pre></div></div>
+
+<p>watch 会在事务开始之前盯住 1 个或多个关键变量，当事务执行时，也就是服务器收到了 exec 指令要顺序执行缓存的事务队列时，Redis 会检查关键变量自 watch 之后，是否被修改了 (包括当前事务所在的客户端)。如果关键变量被人动过了，exec 指令就会返回 null 回复告知客户端事务执行失败，这个时候客户端一般会选择重试。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">watch</span> <span class="n">books</span>
+<span class="no">OK</span>
+<span class="o">&gt;</span> <span class="n">incr</span> <span class="n">books</span> <span class="err">#</span> <span class="n">被修改了</span>
+<span class="o">(</span><span class="n">integer</span><span class="o">)</span> <span class="mi">1</span>
+<span class="o">&gt;</span> <span class="n">multi</span>
+<span class="no">OK</span>
+<span class="o">&gt;</span> <span class="n">incr</span> <span class="n">books</span>
+<span class="no">QUEUED</span>
+<span class="o">&gt;</span> <span class="n">exec</span> <span class="err">#</span> <span class="n">事务执行失败</span>
+<span class="o">(</span><span class="n">nil</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>当服务器给 exec 指令返回一个 null 回复时，客户端知道了事务执行是失败的，通常客户端 (redis-py) 都会抛出一个 WatchError 这种错误，不过也有些语言 (jedis) 不会抛出异常，而是通过在 exec 方法里返回一个 null，这样客户端需要检查一下返回结果是否为 null 来确定事务是否执行失败。</p>
+<p><strong>注意事项</strong></p>
+<p>Redis 禁止在 multi 和 exec 之间执行 watch 指令，而必须在 multi 之前做好盯住关键变量，否则会出错。接下来我们使用 Python 语言来实现对余额的加倍操作。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># -*- coding: utf-8
+</span><span class="kn">import</span> <span class="nn">redis</span>
+<span class="k">def</span> <span class="nf">key_for</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">"account_{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">double_account</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">key_for</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">watch</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+        <span class="n">value</span> <span class="o">*=</span> <span class="mi">2</span> <span class="c1"># 加倍
+</span>        <span class="n">pipe</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">pipeline</span><span class="p">(</span><span class="n">transaction</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">pipe</span><span class="p">.</span><span class="n">multi</span><span class="p">()</span>
+        <span class="n">pipe</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pipe</span><span class="p">.</span><span class="n">execute</span><span class="p">()</span>
+            <span class="k">break</span> <span class="c1"># 总算成功了
+</span>        <span class="k">except</span> <span class="n">redis</span><span class="p">.</span><span class="n">WatchError</span><span class="p">:</span>
+            <span class="k">continue</span> <span class="c1"># 事务被打断了，重试
+</span>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">))</span> <span class="c1"># 重新获取余额
+</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">StrictRedis</span><span class="p">()</span>
+<span class="n">user_id</span> <span class="o">=</span> <span class="s">"abc"</span>
+<span class="n">client</span><span class="p">.</span><span class="n">setnx</span><span class="p">(</span><span class="n">key_for</span><span class="p">(</span><span class="n">user_id</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># setnx 做初始化
+</span><span class="k">print</span> <span class="n">double_account</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>下面我们再使用 Java 语言实现一遍。</p>
+
+<p>~<del>java
+import java.util.List;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Transaction;
+public class TransactionDemo {
+        public static void main(String[] args) {
+        Jedis jedis = new Jedis();
+        String userId = “abc”;
+        String key = keyFor(userId);
+        jedis.setnx(key, String.valueOf(5));//setnx 做初始化
+        System.out.println(doubleAccount(jedis, userId));
+        jedis.close();
+    }
+    public static int doubleAccount(Jedis jedis, String userId) {
+        String key = keyFor(userId);
+        while (true) {
+            jedis.watch(key);
+            int value = Integer.parseInt(jedis.get(key));
+            value *= 2; // 加倍
+            Transaction tx = jedis.multi();
+            tx.set(key, String.valueOf(value));
+            List<object> res = tx.exec();
+            if (res != null) {
+                break; // 成功了
+            }
+        }
+        return Integer.parseInt(jedis.get(key)); // 重新获取余额
+    }
+    public static String keyFor(String userId) {
+        return String.format(“account_{}”, userId);
+    }
+}
+\</object></del>~</p>
+:ET
