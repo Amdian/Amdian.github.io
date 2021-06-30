@@ -19,8 +19,8 @@ permalink: /:year/:month/:day/:title/
 #duoshuo_url: "http://lixizhi.github.io"
 # disqus.com commenting system. please note that it is exclusive with duoshuo.com
 disqus_shortname: Amdian  
-#disqus_url: "http://Amdian.github.io"
-disqus_url: "http://81.68.71.109"
+disqus_url: "http://Amdian.github.io"
+#disqus_url: "http://81.68.71.109"
 #########################################
 
 # Build settings
