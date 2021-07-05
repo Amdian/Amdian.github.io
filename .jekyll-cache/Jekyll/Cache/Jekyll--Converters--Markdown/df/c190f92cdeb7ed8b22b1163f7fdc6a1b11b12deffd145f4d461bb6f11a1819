@@ -1,4 +1,4 @@
-I"�<ul id="markdown-toc">
+I"�<ul id="markdown-toc">
   <li><a href="#概述" id="markdown-toc-概述">概述</a></li>
   <li><a href="#事务特点" id="markdown-toc-事务特点">事务特点</a></li>
   <li><a href="#标准的事务隔离级别" id="markdown-toc-标准的事务隔离级别">标准的事务隔离级别</a></li>
@@ -70,7 +70,7 @@
 
 <p><strong>2.不可重复读</strong></p>
 
-<p>当事务内相同的记录被检索两次，且两次得到的结果不同时，此现象称为不可重复读（事务隔离级别为 READ COMMITTED）。</p>
+<p>当事务内相同的记录被检索两次，且两次得到的结果不同时，此现象称为不可重复读（事务隔离级别为 R。EAD COMMITTED）。</p>
 
 <p>如下表，事务2对记录做了修改并提交成功，这意味着修改的记录对其他事务是可见的，因此事务1两次读取的age值不同。</p>
 
