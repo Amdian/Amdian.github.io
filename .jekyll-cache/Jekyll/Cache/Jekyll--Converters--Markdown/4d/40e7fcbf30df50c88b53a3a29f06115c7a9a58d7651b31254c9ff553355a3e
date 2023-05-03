@@ -1,4 +1,4 @@
-I"�!<p>题链接： <a href="https://leetcode-cn.com/problems/min-cost-to-connect-all-points/">leetcode-1584</a></p>
+I"�!<p>题链接： <a href="https://leetcode-cn.com/problems/min-cost-to-connect-all-points/">leetcode-1584</a></p>
 
 <p>AC代码:</p>
 
@@ -39,7 +39,7 @@
         <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
 
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">minCostConnectPoints</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">points</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">minCostConnectPoints</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">points</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">prim</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  
     <span class="p">}</span>
 <span class="p">};</span>

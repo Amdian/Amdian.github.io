@@ -1,4 +1,4 @@
-I"�T<ul id="markdown-toc">
+I"U<ul id="markdown-toc">
   <li><a href="#redis-事务的基本使用" id="markdown-toc-redis-事务的基本使用">Redis 事务的基本使用</a></li>
   <li><a href="#原子性" id="markdown-toc-原子性">原子性</a></li>
   <li><a href="#discard丢弃" id="markdown-toc-discard丢弃">discard（丢弃）</a></li>
@@ -94,11 +94,11 @@
 
 <p>上面的 Redis 事务在发送每个指令到事务缓存队列时都要经过一次网络读写，当一个事务内部的指令较多时，需要的网络 IO 时间也会线性增长。所以通常 Redis 的客户端在执行事务时都会结合 pipeline 一起使用，这样可以将多次 IO 操作压缩为单次 IO 操作。比如我们在使用 Python 的 Redis 客户端时执行事务时是要强制使用 pipeline 的。</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipe</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">pipeline</span><span class="p">(</span><span class="n">transaction</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
-<span class="n">pipe</span><span class="p">.</span><span class="n">multi</span><span class="p">()</span>
-<span class="n">pipe</span><span class="p">.</span><span class="n">incr</span><span class="p">(</span><span class="s">"books"</span><span class="p">)</span>
-<span class="n">pipe</span><span class="p">.</span><span class="n">incr</span><span class="p">(</span><span class="s">"books"</span><span class="p">)</span>
-<span class="n">values</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">.</span><span class="n">execute</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipe</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="nf">pipeline</span><span class="p">(</span><span class="n">transaction</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
+<span class="n">pipe</span><span class="p">.</span><span class="nf">multi</span><span class="p">()</span>
+<span class="n">pipe</span><span class="p">.</span><span class="nf">incr</span><span class="p">(</span><span class="s">"books"</span><span class="p">)</span>
+<span class="n">pipe</span><span class="p">.</span><span class="nf">incr</span><span class="p">(</span><span class="s">"books"</span><span class="p">)</span>
+<span class="n">values</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">.</span><span class="nf">execute</span><span class="p">()</span>
 </code></pre></div></div>
 
 <hr />
@@ -141,30 +141,30 @@
 <p>Redis 禁止在 multi 和 exec 之间执行 watch 指令，而必须在 multi 之前做好盯住关键变量，否则会出错。接下来我们使用 Python 语言来实现对余额的加倍操作。</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># -*- coding: utf-8
-</span><span class="kn">import</span> <span class="nn">redis</span>
+</span><span class="kn">import</span> <span class="n">redis</span>
 <span class="k">def</span> <span class="nf">key_for</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s">"account_{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s">"account_{}"</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">double_account</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="n">key_for</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="nf">key_for</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">watch</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+        <span class="n">client</span><span class="p">.</span><span class="nf">watch</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
         <span class="n">value</span> <span class="o">*=</span> <span class="mi">2</span> <span class="c1"># 加倍
-</span>        <span class="n">pipe</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">pipeline</span><span class="p">(</span><span class="n">transaction</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">pipe</span><span class="p">.</span><span class="n">multi</span><span class="p">()</span>
-        <span class="n">pipe</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span>        <span class="n">pipe</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">pipeline</span><span class="p">(</span><span class="n">transaction</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">pipe</span><span class="p">.</span><span class="nf">multi</span><span class="p">()</span>
+        <span class="n">pipe</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">pipe</span><span class="p">.</span><span class="n">execute</span><span class="p">()</span>
+            <span class="n">pipe</span><span class="p">.</span><span class="nf">execute</span><span class="p">()</span>
             <span class="k">break</span> <span class="c1"># 总算成功了
 </span>        <span class="k">except</span> <span class="n">redis</span><span class="p">.</span><span class="n">WatchError</span><span class="p">:</span>
             <span class="k">continue</span> <span class="c1"># 事务被打断了，重试
-</span>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">))</span> <span class="c1"># 重新获取余额
+</span>    <span class="k">return</span> <span class="nf">int</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">))</span> <span class="c1"># 重新获取余额
 </span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="n">StrictRedis</span><span class="p">()</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="nc">StrictRedis</span><span class="p">()</span>
 <span class="n">user_id</span> <span class="o">=</span> <span class="s">"abc"</span>
-<span class="n">client</span><span class="p">.</span><span class="n">setnx</span><span class="p">(</span><span class="n">key_for</span><span class="p">(</span><span class="n">user_id</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># setnx 做初始化
-</span><span class="k">print</span> <span class="n">double_account</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
+<span class="n">client</span><span class="p">.</span><span class="nf">setnx</span><span class="p">(</span><span class="nf">key_for</span><span class="p">(</span><span class="n">user_id</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># setnx 做初始化
+</span><span class="k">print</span> <span class="nf">double_account</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>下面我们再使用 Java 语言实现一遍。</p>
