@@ -30,3 +30,8 @@ markdown: kramdown
 # highlighter: pygments
 # highlighter: rouge
 # highlighter: false
+
+
+defaults:
+  - scope:
+      path: "app-ads.txt"
