@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Java之三大特征</title>
+	<meta name="description" content="">
+	
+	<link rel="canonical" href="http://localhost:4000/2021/04/22/Java%E4%B9%8B%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81/">
+	<link rel="alternate" type="application/rss+xml" title="Mr_Liu Blog" href="http://localhost:4000/feed.xml" />
+	
+	<!-- <link rel="stylesheet" href="/css/main.css"> -->
+    
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	<script type="text/javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/monokai_sublime.min.css">
+	<script type="text/javascript" src="/static/js/highlight.min.js"></script>
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/highlight.js/8.4/styles/monokai_sublime.min.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/highlight.js/8.4/highlight.min.js"></script>
+    -->
+    
+	<script type="text/javascript" src="/static/js/index.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+ <!--  <body data-spy="scroll" data-target="#myAffix"> -->
+  <body>
+
+    <!--包含头部html-->
+    <header>
+
+<!-- navbar -->
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Mr_Liu Blog</a>
+      <p class="navbar-text"></p>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+
+        
+          <li>
+        
+        <a href="/">主页</a>
+        </li>
+        
+
+        <!--循环输入头标题-->
+        
+          
+            
+              <li>
+            
+                <a href="/archives/"><span class="glyphicon "></span> 归档</a></li>
+          
+        
+          
+            
+              <li>
+            
+                <a href="/about/"><span class="glyphicon "></span> 关于</a></li>
+          
+        
+          
+        
+          
+        
+          
+            
+              <li>
+            
+                <a href="/"><span class="glyphicon "></span> Mr_Liu Blog</a></li>
+          
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+</header>
+
+    <div id="main" class="container main">
+      <div class="row">
+  <div id="myArticle" class="col-sm-9">
+    <div class="post-area post">
+      <header>
+        <h1>Java之三大特征</h1>
+        <p>Apr 22, 2021</p>
+      </header>
+      <hr>
+      <article>
+        <ul id="markdown-toc">
+  <li><a href="#封装" id="markdown-toc-封装">封装</a></li>
+  <li><a href="#继承" id="markdown-toc-继承">继承</a></li>
+  <li><a href="#多态" id="markdown-toc-多态">多态</a></li>
+</ul>
+
+<h3 id="封装">封装</h3>
+<ol>
+  <li><strong>概念</strong></li>
+</ol>
+
+<blockquote>
+  <p>封装性是面向对象的核心特征之一，它提供了一种信息隐藏技术。类的封转性的含义是将数据和对数据的操作组合起来构成类，
+类是一个不可分割的独立单位。类中既要提供与外部联系的接口，同时又要尽可能隐藏类的实现细节。封装性为软件提供了一种模块化
+的设计机制，设计者提供标准化的类模版，使用者根据实际需求来选择所需要的模块，通过组装模块实现大型软件系统。</p>
+</blockquote>
+
+<p>好处：封装的最大好处就是会使对象容易使用，用户无须去关心其内部的细节。</p>
+<ol>
+  <li><strong>访问控制</strong></li>
+</ol>
+
+<blockquote>
+  <p>按照类的封装性原则，类的设计者既要提供类与外部的联系方式，又要尽可能地隐藏类的实现细节。这就要求了设计者应当根据实际需要，
+为类和类中的成员变量和成员方法分别设置合理的访问权限。<br /></p>
+</blockquote>
+
+<p>在此，Java为类中的成员变量和成员方法设置了4种访问权限，为类本身设置了2种访问权限。</p>
+
+<p><strong>■ 类成员的访问权限</strong></p>
+
+<p>Java提供的4种访问权限分别为：public（公有）、protected（保护）、默认和private（私有）。具体含义如下</p>
+
+<p>☞ public</p>
+
+<blockquote>
+  <p>被public修饰的成员变量和成员方法可以在所有的类中被访问。<strong>所谓在某类中访问某成员变量</strong>，是指在该类的方法中给成员变量赋值、输出其值、在表达式中应用其值等；<strong>所谓在某类中访问某成员方法</strong>，是指在该类的方法中调用该成员方法。因此在所有类的方法中都可以被public修饰的成员变量，调用被public修饰的成员方法。</p>
+</blockquote>
+
+<p>☞ protected</p>
+
+<blockquote>
+  <p>被protected修饰的成员变量和成员方法可以在声明它们的类中被访问，或在该类的子类中被访问，也可以被与该类在同一个包中的类访问，但不能被其他包中的非子类访问。</p>
+</blockquote>
+
+<p>☞ 默认</p>
+
+<blockquote>
+  <p>默认是指不使用任何权限修饰符。被默认修饰的成员变量和成员方法可以被声明它们的类访问，也可以被与该类在同一包中的类访问，但不能被位于其他包中的类访问。默认权限 以包为界 划分访问权限的范围，使成员人可以被与其所属的类位于同一包中的类访问，而不能被该包以外的类访问。</p>
+</blockquote>
+
+<p>☞ private</p>
+
+<blockquote>
+  <p>被private修饰的成员变量和成员方法只能在声明它们的类中被访问,而不能被其他类,甚至其子类所访问。被private修饰的成员，其被访问的权限范围最小，对所有其他类都隐藏信息。</p>
+</blockquote>
+
+<p><strong>备注：不能用访问权限修饰符修饰成员方法中声明的变量或形式参数，因为方法中声明的变量或形式参数的作用域仅限于该方法，在方法之外是不可见的，在其他类中更无法访问</strong></p>
+<center>表1-1 访问权限</center>
+<div>
+    <table>
+        <tr>
+            <th rowspan="1" width="190">比较项目</th>
+            <th width="150">public</th>
+            <th width="150">protected</th>
+            <th width="150">默认</th>
+            <th width="150">private</th>
+        </tr>
+        <tr>
+            <td>本类</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+        </tr>
+        <tr>
+            <td>本类所在包</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>━</td>
+        </tr>
+        <tr>
+            <td>其他包中的子类</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>━</td>
+            <td>━</td>
+        </tr>
+        <tr>
+            <td>其他包中的非子类</td>
+            <td>✔</td>
+            <td>━</td>
+            <td>━</td>
+            <td>━</td>
+        </tr>
+    </table>
+</div>
+
+<p><strong>■ 类的访问权限</strong></p>
+
+<p>声明一个类，可以使用的权限修饰符只有public和默认两种，不能使用protected或private。</p>
+
+<p><strong>备注：一个类如果想直接访问另一个单独的类，有两种情况：</strong></p>
+
+<p><strong>(1)和自己在一个包中，无论其是否为public</strong></p>
+
+<p><strong>(2)和自己不在一个包中，且必须为public</strong></p>
+
+<h3 id="继承">继承</h3>
+<blockquote>
+  <p>继承（英语：inheritance）是面向对象软件技术当中的一个概念。这种技术使得复用以前的代码非常容易，能够大大缩短开发周期，降低开发费用。<br /><br />
+继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的属性和方法，或子类从父类继承方法，使得子类具有父类相同的行为。
+Java继承是使用已存在的类的定义作为基础建立新类的技术，新类的定义可以增加新的数据或新的功能，也可以用父类的功能，但不能选择性地继承父类。<br /><br />
+子类的创建可以增加新数据、新功能，可以继承父类全部的功能，但是不能选择性的继承父类的部分功能。继承是类与类之间的关系，不是对象与对象之间的关系。<br /><br />
+例如：先定义一个类叫车，车有以下属性：车体大小、颜色、轮胎、方向盘、品牌、速度、排气量，由车这个类派生出轿车和卡车两个类，为轿车添加一个小后备箱，而为卡车添加一个大货箱。<br /><br />
+如果某类B“继承”另某类A，就把这个B称为“A的子类或派生类（subclass）”，而把类A称为“B的父类”也可以称为“A是B的超类或基类（superclass）”。<br /><br />
+如果一个类别A“继承自”另一个类别B，就把这个A称为“B的子类别”，而把B称为“A的父类别”也可以称“B是A的超类”。<br /><br />
+继承可以使得子类别具有父类别的各种属性和方法，而不需要再次编写相同的代码。在令子类别继承父类别的同时，可以重新定义某些属性，并重写某些方法，即覆盖父类别的原有属性和方法，使其获得与父类别不同的功能。另外，为子类别追加新的属性和方法也是常见的做法。一般静态的面向对象编程语言，继承属于静态的，意即子类别的行为在编译期就已经决定，无法在执行期扩充。<br /><br />
+那么如何使用继承呢？用extends关键字来继承父类。<br /><br />
+如上面A类与B类，当写继承语句时，class A类 extends B类{ } 其中A类是子类，B类是父类。<br /><br /></p>
+</blockquote>
+
+<p>继承的语句格式：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class 子类名 extends 父类名{}
+class 父类 { } class 子类 extends 父类 {}
+</code></pre></div></div>
+
+<p><img src="/static/img/extends.jpg" alt="继承" width="60%" /></p>
+
+<p><a href="https://baike.baidu.com/item/%E7%BB%A7%E6%89%BF/20267560?fr=aladdin">继承知识点转载百度文库</a></p>
+
+<h3 id="多态">多态</h3>
+
+<p><strong>为了实现运行期的多态，或者说是动态绑定，需要满足三个条件：</strong></p>
+<ul>
+  <li>有类继承或者接口实现</li>
+  <li>子类要重写父类的方法</li>
+  <li>父类的引用指向子类的对象</li>
+</ul>
+<p>多态的作用是消除类型之间的耦合关系</p>
+
+<p><a href="http://hollischuang.gitee.io/tobetopjavaer/#/">转载推荐github博主</a></p>
+
+       
+      </article>
+      <hr>
+        <div class="bdsharebuttonbox">
+            <a href="#" class="bds_more" data-cmd="more"></a>
+            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+            <a href="#" class="bds_fbook" data-cmd="fbook" title="Share to Facebook"></a>
+            <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+            
+        </div>
+        <script>
+            window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    </div>
+	
+    <!-- duoshuo.com javascript include code. -->    
+    
+    <!-- disqus.com javascript include code. -->
+	
+    <div class="post-area post comment">
+        <div id="disqus_thread"></div>
+    </div>
+	<script>
+		var disqus_config = function () {
+			this.page.url = "http://Amdian.github.io/2021/04/22/Java%E4%B9%8B%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81/"; 
+			this.page.identifier = "/2021/04/22/Java之三大特征"; 
+		};
+		(function() {
+			var d = document, s = d.createElement('script');
+			s.src = '//Amdian.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+	
+    
+  </div>
+  
+  <div id="content" class="col-sm-3">
+    <!-- <div id="myAffix" class="shadow-bottom-center hidden-xs" data-spy="affix" data-offset-top="0" data-offset-bottom="-20"> -->
+    <div id="myAffix" class="shadow-bottom-center hidden-xs" >
+      <div class="categories-list-header">
+        导航
+      </div>
+      <div class="content-text"></div>
+    </div>
+  </div>
+
+</div>
+    </div>
+ 
+    <!-- 看板娘 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+    L2Dwidget.init({
+    "model": {
+    jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+    "scale": 1
+    },
+    "display": {
+    "width": 150,
+    "height": 300,
+    "position": "left",
+    "hOffset": 20,
+    "vOffset": -20
+    },
+    "mobile": {
+    "show": true,
+    "scale": 0.8
+    },
+    "react": {
+    "opacityDefault": 0.8,
+    "opacityOnHover": 0.2
+    }
+    });
+    });
+    </script> -->
+    <!-- 上面都是看板娘 -->
+    
+    <div class="waifu">
+    <div class="waifu-tips"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="waifu-tool">
+    <span class="fui-chat"></span>
+    <span class="fui-photo"></span>
+    </div>
+    </div>
+    
+    <div id="top" data-toggle="tooltip" data-placement="left" title="back to top">
+      <a href="javascript:;">
+        <div class="arrow"></div>
+        <div class="stick"></div>
+      </a>
+    </div>
+
+
+
+
+    <footer class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="mailto:473919195@qq.com"><span class="glyphicon glyphicon-envelope"></span> 473919195@qq.com</a>
+        <span class="point"> · </span>
+        
+          <a href="https://github.com/Amdian">
+            <span class="icon">
+              <svg viewBox="0 0 16 16">
+                <path fill="#aaa" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            Github
+            <!-- <span>Amdian</span> -->
+          </a>
+          
+          <span class="point"> · </span>
+          <span><a href="_posts/java/2021-4-22-Java之三大特征.md">View source</a></span>
+          <span class="point"> · </span>
+          <span><a class="newpost" href="#">粤ICP备2021097855号</a></span>
+		  <span class="point"> · </span>
+          <span><a href="/feed.xml">RSS</a></span>
+          <span class="point"> · </span>
+          <span>&copy; 2021 Liucanming</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script type="text/javascript">
+    function OnClickNewPost()
+    {
+        var title = prompt("Please enter title of your post");
+        if (title!=null){
+            title = title.replace(" ", "-");
+            var currentdate = new Date();
+            var urlNewPage = "?filename=_posts/" 
+                + currentdate.getFullYear() + "-" + (currentdate.getMonth()+1) + "-" + currentdate.getDate() + "-" + title + ".md";
+                
+            var defaultText =  [
+                '---',
+                'layout: post',
+                'comments: true',
+                'categories: diary',
+                '---',
+                '## Title',
+                'text'
+                ].join('\n');
+            urlNewPage += "&value=" + encodeURIComponent(defaultText);
+            window.open(urlNewPage);
+        }
+    }
+    
+    $(function() {
+      // CreateNewPostLinks
+      $('.newpost').each(function(){
+          $(this).click(OnClickNewPost);
+      });
+    });
+</script>
+  
+  </body>
+</html>

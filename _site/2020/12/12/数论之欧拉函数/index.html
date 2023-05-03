@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>数论之欧拉函数</title>
+	<meta name="description" content="">
+	
+	<link rel="canonical" href="http://localhost:4000/2020/12/12/%E6%95%B0%E8%AE%BA%E4%B9%8B%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/">
+	<link rel="alternate" type="application/rss+xml" title="Mr_Liu Blog" href="http://localhost:4000/feed.xml" />
+	
+	<!-- <link rel="stylesheet" href="/css/main.css"> -->
+    
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	<script type="text/javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/monokai_sublime.min.css">
+	<script type="text/javascript" src="/static/js/highlight.min.js"></script>
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/highlight.js/8.4/styles/monokai_sublime.min.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/highlight.js/8.4/highlight.min.js"></script>
+    -->
+    
+	<script type="text/javascript" src="/static/js/index.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+ <!--  <body data-spy="scroll" data-target="#myAffix"> -->
+  <body>
+
+    <!--包含头部html-->
+    <header>
+
+<!-- navbar -->
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Mr_Liu Blog</a>
+      <p class="navbar-text"></p>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+
+        
+          <li>
+        
+        <a href="/">主页</a>
+        </li>
+        
+
+        <!--循环输入头标题-->
+        
+          
+            
+              <li>
+            
+                <a href="/archives/"><span class="glyphicon "></span> 归档</a></li>
+          
+        
+          
+            
+              <li>
+            
+                <a href="/about/"><span class="glyphicon "></span> 关于</a></li>
+          
+        
+          
+        
+          
+        
+          
+            
+              <li>
+            
+                <a href="/"><span class="glyphicon "></span> Mr_Liu Blog</a></li>
+          
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+</header>
+
+    <div id="main" class="container main">
+      <div class="row">
+  <div id="myArticle" class="col-sm-9">
+    <div class="post-area post">
+      <header>
+        <h1>数论之欧拉函数</h1>
+        <p>Dec 12, 2020</p>
+      </header>
+      <hr>
+      <article>
+        <ul id="markdown-toc">
+  <li><a href="#概念" id="markdown-toc-概念">概念</a></li>
+  <li><a href="#代码实现" id="markdown-toc-代码实现">代码实现</a></li>
+</ul>
+
+<h4 id="概念">概念</h4>
+
+<p>在数论中，对于正整数n，欧拉函数是小于或等于n的正整数中与n互质的数的个数(所以会得出一个结论φ(1)=1)，又例如φ(8)=4，因为在1~8的正整数中，唯有1,3,5,7均和8是互为质子数的，数目只有4个。</p>
+
+<p><strong>内容</strong></p>
+
+<p>欧拉函数的通式：<img src="/static/img/algorithm/2.jpg" alt="2" width="14%" />（其中p1，p2，……pn为x的所有质因数，x是不为0的整数）</p>
+
+<p><strong>定义如下</strong>：</p>
+
+<blockquote>
+  <p>φ(1)=1，因为在小于等于1的范围里面，和1互质的只有1本身。</p>
+</blockquote>
+
+<p><strong>通式的例子</strong>：</p>
+
+<blockquote>
+  <p>φ(10)=10×(1-1/2)×(1-1/5)=4, ——–10的质因数有2,5</p>
+
+  <p>φ(30)=30×(1-1/2)×(1-1/3)×(1-1/5)=8，——–30的质因数有2,3,5</p>
+
+  <p>φ(49)=49×(1-1/7)=42;——–49的质因数只有7</p>
+</blockquote>
+
+<p><strong>Attention</strong>！每种质因数只有一个</p>
+
+<p>结论1：若n是质数p的k次幂，则，<img src="/static/img/algorithm/3.jpg" alt="3" width="22%" />，因为除了P的倍数外，其他数都是跟n互质的</p>
+
+<p>例如：12=2 * 2 * 3那么<img src="/static/img/algorithm/4.jpg" alt="4" width="40%" /></p>
+
+<p>欧拉函数是<a href="https://baike.baidu.com/item/%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0">积性函数</a>——若m,n互质，φ(mn)=φ(m)φ(n)</p>
+
+<p>特殊性质：当n为奇质数时，φ(2n)=φ(n), 证明与上述类似。</p>
+
+<p>若n为质数则φ(n)=n-1</p>
+
+<p><strong>补充</strong></p>
+
+<p>☞ 12=2 * 2 * 3，这里的2、2、3都是12的因数，而2和3都是质数，因此把2、3、3叫做12的质因数。假如12=2 * 6，这里的2、6都是12的因素，但是2是质数，而6是合数。因此2可以称作12的质因数，但是6就不能。</p>
+
+<p><strong>同余定理</strong>：</p>
+
+<blockquote>
+  <p>如果 a mod b = c 则有(a+kb) mod b =c(k为非0整数)</p>
+
+  <p>如果 a mod b = c 则有(ka) mod b =kc (k为正整数)</p>
+
+  <p>(a+b) mod c =((a mod c)+(b mod c )) mod c;</p>
+
+  <p>(a * b) mod c=((a mod c) * (b mod c)) mod c</p>
+</blockquote>
+
+<hr />
+
+<h4 id="代码实现">代码实现</h4>
+
+<p>例1：直接求小于或等于n,且与n互质的个数（只要求一个数的欧拉函数值，那么直接根据定义质因数分解的同时求就好了）</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">int</span> <span class="no">Euler</span><span class="p">(</span><span class="n">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>    
+    <span class="n">int</span> <span class="n">ans</span><span class="o">=</span><span class="n">n</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">);</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>       
+        <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>       
+        <span class="p">{</span>           
+            <span class="n">ans</span><span class="o">=</span><span class="n">ans</span><span class="o">/</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span><span class="sr">//</span><span class="err">先进行除法防止溢出</span><span class="p">(</span><span class="n">ans</span><span class="o">=</span><span class="n">ans</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">pi</span><span class="p">))</span>           
+            <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">{</span>               
+                <span class="n">n</span><span class="o">/=</span><span class="n">i</span><span class="p">;</span>
+            <span class="p">}</span>    
+        <span class="p">}</span> 
+    <span class="p">}</span>    
+    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+         <span class="n">ans</span><span class="o">=</span><span class="n">ans</span><span class="o">/</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>筛选模板:求[1,n]之间每个数的质因数的个数</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#define size 1000001</span>
+<span class="n">int</span> <span class="n">euler</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+<span class="n">void</span> <span class="no">Init</span><span class="p">()</span>
+<span class="p">{</span>    
+    <span class="n">memset</span><span class="p">(</span><span class="n">euler</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sizeof</span><span class="p">(</span><span class="n">euler</span><span class="p">));</span>    
+    <span class="n">euler</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>    
+    <span class="k">for</span><span class="p">(</span><span class="n">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+   <span class="err">｛</span>       
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">euler</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+      <span class="err">｛</span>             
+            <span class="k">for</span><span class="p">(</span><span class="n">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span><span class="n">j</span><span class="o">+=</span><span class="n">i</span><span class="p">)</span>          
+            <span class="p">{</span>              
+                 <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">euler</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                <span class="err">｛</span>                
+                     <span class="n">euler</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>        
+                     <span class="n">euler</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">euler</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">/</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span><span class="sr">//</span><span class="err">先进行除法是为了防止中间数据的溢出</span>
+                <span class="err">｝</span>          
+            <span class="p">}</span>
+       <span class="err">｝</span>
+    <span class="err">｝</span>
+<span class="p">}</span></code></pre></figure>
+
+
+       
+      </article>
+      <hr>
+        <div class="bdsharebuttonbox">
+            <a href="#" class="bds_more" data-cmd="more"></a>
+            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+            <a href="#" class="bds_fbook" data-cmd="fbook" title="Share to Facebook"></a>
+            <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+            
+        </div>
+        <script>
+            window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    </div>
+	
+    <!-- duoshuo.com javascript include code. -->    
+    
+    <!-- disqus.com javascript include code. -->
+	
+    <div class="post-area post comment">
+        <div id="disqus_thread"></div>
+    </div>
+	<script>
+		var disqus_config = function () {
+			this.page.url = "http://Amdian.github.io/2020/12/12/%E6%95%B0%E8%AE%BA%E4%B9%8B%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/"; 
+			this.page.identifier = "/2020/12/12/数论之欧拉函数"; 
+		};
+		(function() {
+			var d = document, s = d.createElement('script');
+			s.src = '//Amdian.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+	
+    
+  </div>
+  
+  <div id="content" class="col-sm-3">
+    <!-- <div id="myAffix" class="shadow-bottom-center hidden-xs" data-spy="affix" data-offset-top="0" data-offset-bottom="-20"> -->
+    <div id="myAffix" class="shadow-bottom-center hidden-xs" >
+      <div class="categories-list-header">
+        导航
+      </div>
+      <div class="content-text"></div>
+    </div>
+  </div>
+
+</div>
+    </div>
+ 
+    <!-- 看板娘 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+    L2Dwidget.init({
+    "model": {
+    jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+    "scale": 1
+    },
+    "display": {
+    "width": 150,
+    "height": 300,
+    "position": "left",
+    "hOffset": 20,
+    "vOffset": -20
+    },
+    "mobile": {
+    "show": true,
+    "scale": 0.8
+    },
+    "react": {
+    "opacityDefault": 0.8,
+    "opacityOnHover": 0.2
+    }
+    });
+    });
+    </script> -->
+    <!-- 上面都是看板娘 -->
+    
+    <div class="waifu">
+    <div class="waifu-tips"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="waifu-tool">
+    <span class="fui-chat"></span>
+    <span class="fui-photo"></span>
+    </div>
+    </div>
+    
+    <div id="top" data-toggle="tooltip" data-placement="left" title="back to top">
+      <a href="javascript:;">
+        <div class="arrow"></div>
+        <div class="stick"></div>
+      </a>
+    </div>
+
+
+
+
+    <footer class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="mailto:473919195@qq.com"><span class="glyphicon glyphicon-envelope"></span> 473919195@qq.com</a>
+        <span class="point"> · </span>
+        
+          <a href="https://github.com/Amdian">
+            <span class="icon">
+              <svg viewBox="0 0 16 16">
+                <path fill="#aaa" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            Github
+            <!-- <span>Amdian</span> -->
+          </a>
+          
+          <span class="point"> · </span>
+          <span><a href="_posts/algorithm/2020-12-12-数论之欧拉函数.md">View source</a></span>
+          <span class="point"> · </span>
+          <span><a class="newpost" href="#">粤ICP备2021097855号</a></span>
+		  <span class="point"> · </span>
+          <span><a href="/feed.xml">RSS</a></span>
+          <span class="point"> · </span>
+          <span>&copy; 2021 Liucanming</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script type="text/javascript">
+    function OnClickNewPost()
+    {
+        var title = prompt("Please enter title of your post");
+        if (title!=null){
+            title = title.replace(" ", "-");
+            var currentdate = new Date();
+            var urlNewPage = "?filename=_posts/" 
+                + currentdate.getFullYear() + "-" + (currentdate.getMonth()+1) + "-" + currentdate.getDate() + "-" + title + ".md";
+                
+            var defaultText =  [
+                '---',
+                'layout: post',
+                'comments: true',
+                'categories: diary',
+                '---',
+                '## Title',
+                'text'
+                ].join('\n');
+            urlNewPage += "&value=" + encodeURIComponent(defaultText);
+            window.open(urlNewPage);
+        }
+    }
+    
+    $(function() {
+      // CreateNewPostLinks
+      $('.newpost').each(function(){
+          $(this).click(OnClickNewPost);
+      });
+    });
+</script>
+  
+  </body>
+</html>

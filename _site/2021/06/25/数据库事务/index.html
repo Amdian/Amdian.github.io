@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>数据库事务</title>
+	<meta name="description" content="">
+	
+	<link rel="canonical" href="http://localhost:4000/2021/06/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/">
+	<link rel="alternate" type="application/rss+xml" title="Mr_Liu Blog" href="http://localhost:4000/feed.xml" />
+	
+	<!-- <link rel="stylesheet" href="/css/main.css"> -->
+    
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	<script type="text/javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/monokai_sublime.min.css">
+	<script type="text/javascript" src="/static/js/highlight.min.js"></script>
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/highlight.js/8.4/styles/monokai_sublime.min.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/highlight.js/8.4/highlight.min.js"></script>
+    -->
+    
+	<script type="text/javascript" src="/static/js/index.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+ <!--  <body data-spy="scroll" data-target="#myAffix"> -->
+  <body>
+
+    <!--包含头部html-->
+    <header>
+
+<!-- navbar -->
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Mr_Liu Blog</a>
+      <p class="navbar-text"></p>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+
+        
+          <li>
+        
+        <a href="/">主页</a>
+        </li>
+        
+
+        <!--循环输入头标题-->
+        
+          
+            
+              <li>
+            
+                <a href="/archives/"><span class="glyphicon "></span> 归档</a></li>
+          
+        
+          
+            
+              <li>
+            
+                <a href="/about/"><span class="glyphicon "></span> 关于</a></li>
+          
+        
+          
+        
+          
+        
+          
+            
+              <li>
+            
+                <a href="/"><span class="glyphicon "></span> Mr_Liu Blog</a></li>
+          
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+</header>
+
+    <div id="main" class="container main">
+      <div class="row">
+  <div id="myArticle" class="col-sm-9">
+    <div class="post-area post">
+      <header>
+        <h1>数据库事务</h1>
+        <p>Jun 25, 2021</p>
+      </header>
+      <hr>
+      <article>
+        <ul id="markdown-toc">
+  <li><a href="#概述" id="markdown-toc-概述">概述</a></li>
+  <li><a href="#事务特点" id="markdown-toc-事务特点">事务特点</a></li>
+  <li><a href="#标准的事务隔离级别" id="markdown-toc-标准的事务隔离级别">标准的事务隔离级别</a></li>
+  <li><a href="#调整事务隔离级别" id="markdown-toc-调整事务隔离级别">调整事务隔离级别</a></li>
+  <li><a href="#事务管理" id="markdown-toc-事务管理">事务管理</a></li>
+</ul>
+
+<h4 id="概述">概述</h4>
+
+<p>事务（Transaction）是并发控制的基本单位。所谓的事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。</p>
+
+<p>事务的开始与结束可以由用户显式地控制。如果用户没有显式地定义事务，则由DBMS按默认的规定自动划分事务。</p>
+
+<hr />
+
+<h4 id="事务特点">事务特点</h4>
+
+<p>事务具有原子性、一致性、独立性、隔离性及持久性等特点。</p>
+
+<p>(1)<strong>原子性(Atomicity)</strong>整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。事务在执行过程中发生错误，会被 回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</p>
+
+<p><strong>例子1</strong>：银行转账，从A账户转100元至B账户，分为两个步骤：</p>
+
+<p>①从A账户减少100元</p>
+
+<p>②转100元至B账户</p>
+
+<p>这两步必须同时完成，要么都不完成。不可能A的钱转了，然后钱少了，但是B的钱却没有增多。</p>
+
+<p><strong>例子2</strong>：银行取钱</p>
+
+<p>①银行卡减款</p>
+
+<p>②拿到现金</p>
+
+<p>不可能银行卡减少了，而钱却没拿到。这两步必须同时完成，要么都不完成。</p>
+
+<p>(2)<strong>一致性（Consistency）</strong>在事务开始之前和事务结束以后，数据库数据的一致性约束没有被破坏。 例如：现有完整性约束A+B=100，如果一个事务改变了A，那么必须得改变B，使得事务结束后依然满足A+B=100，否则事务失败。</p>
+
+<p>(3)<strong>隔离性（Isolation）</strong>数据库允许多个并发事务同时对数据进行读写和修改的能力，如果一个事务要访问的数据正在被另外一个事务修改，只要另外一个事务未提交，它所访问的数据就不受未提交事务的影响。隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。例如：现有有个交易是从A账户转100元至B账户，在这个交易事务还未完成的情况下，如果此时B查询自己的账户，是看不到新增加的100元的。</p>
+
+<p>(4)<strong>持久性（Durability）</strong>事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。一旦事务提交，则其所做的修改就会永久保存到数据库中。此时即使系统崩溃，修改的数据也不会丢失。持久性是个有点模糊的概念，因为实际上持久性也分很多不同的级别。而且不可能有能做到100%的持久性策略（如果数据库本身就能做到真正的持久性，那么备份又怎么能增加持久性呢？）</p>
+
+<hr />
+
+<h4 id="标准的事务隔离级别">标准的事务隔离级别</h4>
+
+<p>在数据库中标准的事务隔离级别有如下几种：</p>
+
+<blockquote>
+  <p>❶ 未提交读（READ-UNCOMMITTED），对应的异常线程是脏读（Dirty read）。</p>
+
+  <p>❷ 提交读（READ COMMITTED），对应的异常现象是不可重复读（Non-repeatable read）。</p>
+
+  <p>❸ 可重复读(REPEATABLE READ)，对应的异常现象是幻读（Phantom read）。</p>
+
+  <p>❹ 可序列化(SERIALIZABLE)。</p>
+</blockquote>
+
+<p><strong>1.脏读</strong></p>
+
+<p>当一个事务被允许读取另一个事务修改但未提交的数据时，就会发生脏读（事务隔离级别为READ-UNCOMMITTED）。</p>
+
+<p>如下表，事务2修改了一行记录，但是没有提交。然后事务1读取到了未提交的数据，如果事务2回滚其更改的数据或再次更新，那么事务1种看到的记录可能就是错误。</p>
+
+<p><img src="/static/img/database/1.jpg" alt="1" width="80%" /></p>
+
+<p>事务1读取到了age=27的记录，但是事务2执行了回滚操作，这时并不存id=1，age=27的记录。</p>
+
+<p><strong>2.不可重复读</strong></p>
+
+<p>当事务内相同的记录被检索两次，且两次得到的结果不同时，此现象称为不可重复读（事务隔离级别为 R。EAD COMMITTED）。</p>
+
+<p>如下表，事务2对记录做了修改并提交成功，这意味着修改的记录对其他事务是可见的，因此事务1两次读取的age值不同。</p>
+
+<p><img src="/static/img/database/2.jpg" alt="2" width="80%" /></p>
+
+<p><strong>3.幻读</strong></p>
+
+<p>在事务执行过程中，另一个事务将新记录添加到正在读取的事务中时，会发生幻读（事务隔离级别为REPEATABLE READ）。</p>
+
+<p>当执行SELECT…WHERE语句时未对范围锁定，则可能会发生这种情况。幻读是不可重复的一种特殊情况，当事务1重复执行SELECT…WHERE语句时，在这期间事务2执行INSERT语句插入了满足where条件的新记录。</p>
+
+<p>如下表：事务1执行两次，返回两组不同的记录。这里需要注意，在MySQL中增加了间隙锁防止幻读发生，所以在MySQL中事务隔离级别为REPREATABLE-READ，不会发生以上异常现象。</p>
+
+<p><img src="/static/img/database/3.jpg" alt="3" width="80%" /></p>
+
+<hr />
+
+<h4 id="调整事务隔离级别">调整事务隔离级别</h4>
+
+<p>在MySQL中可以通过设置transaction_isolation参数来调整数据库事务隔离级别，默认的事务隔离级别是REPREATABLE-READ。但是为了避免发送锁等待，通常我们都将事务隔离级别设置为READ-COMMITTED</p>
+
+<p>通过参数调整可以在配置文件中设置，或者使用命令行参数修改，例如修改事务隔离级别为READ-COMMITTED：</p>
+
+<blockquote>
+  <p>SET GLOBAL transaction_isolation = ‘READ-COMMITTED’</p>
+</blockquote>
+
+<hr />
+
+<h4 id="事务管理">事务管理</h4>
+
+<p>在MySQL中默认是自动提交事务的，可以通过以下方式手动开启事务：</p>
+
+<p>● 执行begin语句</p>
+
+<p>● 执行start transaction 语句</p>
+
+<p>● 设置autocommit = 0</p>
+
+<p>可以通过以下4种方式提交事务</p>
+
+<p>● 执行commit语句</p>
+
+<p>● DDL语句隐式提交</p>
+
+<p>● 自动提交（commit）</p>
+
+<p>● 在事务内开启事务</p>
+
+<p>事务的回滚方式如下：</p>
+
+<p>● 执行rollback语句</p>
+
+<p>● 因达到超时时间而发生语句级或者事务级的回滚</p>
+
+<p>● 检测到死锁时发生回滚</p>
+
+       
+      </article>
+      <hr>
+        <div class="bdsharebuttonbox">
+            <a href="#" class="bds_more" data-cmd="more"></a>
+            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+            <a href="#" class="bds_fbook" data-cmd="fbook" title="Share to Facebook"></a>
+            <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+            
+        </div>
+        <script>
+            window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    </div>
+	
+    <!-- duoshuo.com javascript include code. -->    
+    
+    <!-- disqus.com javascript include code. -->
+	
+    <div class="post-area post comment">
+        <div id="disqus_thread"></div>
+    </div>
+	<script>
+		var disqus_config = function () {
+			this.page.url = "http://Amdian.github.io/2021/06/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/"; 
+			this.page.identifier = "/2021/06/25/数据库事务"; 
+		};
+		(function() {
+			var d = document, s = d.createElement('script');
+			s.src = '//Amdian.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+	
+    
+  </div>
+  
+  <div id="content" class="col-sm-3">
+    <!-- <div id="myAffix" class="shadow-bottom-center hidden-xs" data-spy="affix" data-offset-top="0" data-offset-bottom="-20"> -->
+    <div id="myAffix" class="shadow-bottom-center hidden-xs" >
+      <div class="categories-list-header">
+        导航
+      </div>
+      <div class="content-text"></div>
+    </div>
+  </div>
+
+</div>
+    </div>
+ 
+    <!-- 看板娘 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+    L2Dwidget.init({
+    "model": {
+    jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+    "scale": 1
+    },
+    "display": {
+    "width": 150,
+    "height": 300,
+    "position": "left",
+    "hOffset": 20,
+    "vOffset": -20
+    },
+    "mobile": {
+    "show": true,
+    "scale": 0.8
+    },
+    "react": {
+    "opacityDefault": 0.8,
+    "opacityOnHover": 0.2
+    }
+    });
+    });
+    </script> -->
+    <!-- 上面都是看板娘 -->
+    
+    <div class="waifu">
+    <div class="waifu-tips"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="waifu-tool">
+    <span class="fui-chat"></span>
+    <span class="fui-photo"></span>
+    </div>
+    </div>
+    
+    <div id="top" data-toggle="tooltip" data-placement="left" title="back to top">
+      <a href="javascript:;">
+        <div class="arrow"></div>
+        <div class="stick"></div>
+      </a>
+    </div>
+
+
+
+
+    <footer class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="mailto:473919195@qq.com"><span class="glyphicon glyphicon-envelope"></span> 473919195@qq.com</a>
+        <span class="point"> · </span>
+        
+          <a href="https://github.com/Amdian">
+            <span class="icon">
+              <svg viewBox="0 0 16 16">
+                <path fill="#aaa" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            Github
+            <!-- <span>Amdian</span> -->
+          </a>
+          
+          <span class="point"> · </span>
+          <span><a href="_posts/database/2021-6-25-数据库事务.md">View source</a></span>
+          <span class="point"> · </span>
+          <span><a class="newpost" href="#">粤ICP备2021097855号</a></span>
+		  <span class="point"> · </span>
+          <span><a href="/feed.xml">RSS</a></span>
+          <span class="point"> · </span>
+          <span>&copy; 2021 Liucanming</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script type="text/javascript">
+    function OnClickNewPost()
+    {
+        var title = prompt("Please enter title of your post");
+        if (title!=null){
+            title = title.replace(" ", "-");
+            var currentdate = new Date();
+            var urlNewPage = "?filename=_posts/" 
+                + currentdate.getFullYear() + "-" + (currentdate.getMonth()+1) + "-" + currentdate.getDate() + "-" + title + ".md";
+                
+            var defaultText =  [
+                '---',
+                'layout: post',
+                'comments: true',
+                'categories: diary',
+                '---',
+                '## Title',
+                'text'
+                ].join('\n');
+            urlNewPage += "&value=" + encodeURIComponent(defaultText);
+            window.open(urlNewPage);
+        }
+    }
+    
+    $(function() {
+      // CreateNewPostLinks
+      $('.newpost').each(function(){
+          $(this).click(OnClickNewPost);
+      });
+    });
+</script>
+  
+  </body>
+</html>

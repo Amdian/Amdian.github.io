@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>排序</title>
+	<meta name="description" content="">
+	
+	<link rel="canonical" href="http://localhost:4000/2021/02/28/%E6%8E%92%E5%BA%8F/">
+	<link rel="alternate" type="application/rss+xml" title="Mr_Liu Blog" href="http://localhost:4000/feed.xml" />
+	
+	<!-- <link rel="stylesheet" href="/css/main.css"> -->
+    
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	<script type="text/javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/monokai_sublime.min.css">
+	<script type="text/javascript" src="/static/js/highlight.min.js"></script>
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/highlight.js/8.4/styles/monokai_sublime.min.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/highlight.js/8.4/highlight.min.js"></script>
+    -->
+    
+	<script type="text/javascript" src="/static/js/index.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+ <!--  <body data-spy="scroll" data-target="#myAffix"> -->
+  <body>
+
+    <!--包含头部html-->
+    <header>
+
+<!-- navbar -->
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Mr_Liu Blog</a>
+      <p class="navbar-text"></p>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+
+        
+          <li>
+        
+        <a href="/">主页</a>
+        </li>
+        
+
+        <!--循环输入头标题-->
+        
+          
+            
+              <li>
+            
+                <a href="/archives/"><span class="glyphicon "></span> 归档</a></li>
+          
+        
+          
+            
+              <li>
+            
+                <a href="/about/"><span class="glyphicon "></span> 关于</a></li>
+          
+        
+          
+        
+          
+        
+          
+            
+              <li>
+            
+                <a href="/"><span class="glyphicon "></span> Mr_Liu Blog</a></li>
+          
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+</header>
+
+    <div id="main" class="container main">
+      <div class="row">
+  <div id="myArticle" class="col-sm-9">
+    <div class="post-area post">
+      <header>
+        <h1>排序</h1>
+        <p>Feb 28, 2021</p>
+      </header>
+      <hr>
+      <article>
+        <ul id="markdown-toc">
+  <li><a href="#时间复杂度和空间复杂度" id="markdown-toc-时间复杂度和空间复杂度">时间复杂度和空间复杂度</a></li>
+  <li><a href="#冒泡排序蛮力法" id="markdown-toc-冒泡排序蛮力法">冒泡排序（蛮力法）</a></li>
+  <li><a href="#选择排序蛮力法" id="markdown-toc-选择排序蛮力法">选择排序（蛮力法）</a></li>
+  <li><a href="#插入排序减治法" id="markdown-toc-插入排序减治法">插入排序（减治法）</a></li>
+  <li><a href="#希尔排序分治法" id="markdown-toc-希尔排序分治法">希尔排序（分治法）</a></li>
+  <li><a href="#归并排序分治法" id="markdown-toc-归并排序分治法">归并排序（分治法）</a></li>
+  <li><a href="#快速排序分治法" id="markdown-toc-快速排序分治法">快速排序（分治法）</a></li>
+  <li><a href="#堆排序分治法" id="markdown-toc-堆排序分治法">堆排序（分治法）</a></li>
+  <li><a href="#计数排序" id="markdown-toc-计数排序">计数排序</a></li>
+</ul>
+
+<h3 id="时间复杂度和空间复杂度">时间复杂度和空间复杂度</h3>
+
+<p>下图就是本篇文章说到的排序算法，之后可能会补充其它的排序算法吧~
+<br /></p>
+
+<p><img src="/static/img/sort.jpg" alt="avatar" width="90%" /></p>
+
+<hr />
+
+<h3 id="冒泡排序蛮力法">冒泡排序（蛮力法）</h3>
+
+<p>过程如下</p>
+
+<p><img src="/static/img/sorts/1.gif" alt="1" width="60%" /></p>
+
+<p>这里就以简单的以升序为例，因为冒泡排序的思想都是一样的，所以我就不做过多的阐述。</p>
+
+<p>思想：对无序区从前向后依次比较相邻记录，若反序则交换，从而使得值较小的记录向前移，值较大的记录向后移（都说冒泡了，就跟在水中的气泡一样，体积大的先浮上来）</p>
+
+<p>代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="n">bubble_sort</span><span class="p">(</span><span class="n">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="n">int</span> <span class="n">len</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="p">,</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="p">{</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+                <span class="n">arr</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>优化操作</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="n">bubble_sort</span><span class="p">(</span><span class="n">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="n">int</span> <span class="n">len</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="p">,</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="n">bool</span> <span class="n">flag</span><span class="o">=</span><span class="kp">true</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="p">{</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+                <span class="n">arr</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+                <span class="n">flag</span><span class="o">=</span><span class="kp">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span><span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<h3 id="选择排序蛮力法">选择排序（蛮力法）</h3>
+
+<p>过程如下</p>
+
+<p><img src="/static/img/sorts/2.gif" alt="2" width="60%" /></p>
+
+<p>思想：在无序区找出最小的记录，然后将它与无序区的第一个记录交换，使得有序去扩展一个记录，同时无序区减少一个记录。</p>
+
+<p>代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="n">selection_sort</span><span class="p">(</span><span class="n">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="n">int</span> <span class="n">len</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">index</span><span class="p">,</span><span class="n">temp</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">index</span><span class="p">])</span><span class="n">index</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">index</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">temp</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">=</span><span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<h3 id="插入排序减治法">插入排序（减治法）</h3>
+
+<p>过程如下</p>
+
+<p><img src="/static/img/sorts/3.gif" alt="3" width="60%" /></p>
+
+<p>思想：插入排序（insertion sort）属于减治法的减一技术，即每一趟排序后将问题规模减少1，其基本思想的是依次将待排序序列中的每一个记录插入到一个已经排好序列的序列中，直到全部记录都排好序。</p>
+
+<p>代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="no">Insertion_Sort</span><span class="p">(</span><span class="n">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="n">int</span> <span class="n">len</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">len</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span><span class="n">j</span><span class="o">--</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<h3 id="希尔排序分治法">希尔排序（分治法）</h3>
+
+<p>过程如下</p>
+
+<p><img src="/static/img/sorts/4.gif" alt="4" width="60%" /></p>
+
+<p><img src="/static/img/sorts/5.gif" alt="5" width="60%" /></p>
+
+<p>希尔排序（Shell’s Sort）是插入排序的一种又称“缩小增量排序”，是直接插入排序算法的一种更高效的改进版本。希尔排序是非常稳定排序算法。该方法因 D.L.Shell 于 1959 年提出而得名。</p>
+
+<p>思想：</p>
+
+<p>原文：The method starts by sorting pairs of elements far apart from each other, then progressively reducing the gap between elements to be compared. Starting with far apart elements, it can move some out-of-place elements into position faster than a simple nearest neighbor exchange.</p>
+
+<p>这里就长话短说吧，如果你有更好的思想，可以邮箱联系–&gt;希尔排序其实就将待排序列分成很多个组，但是分组呢不是随便分的，是按照差距(gap)分组，差距(gap)怎么计算呢，就是假如你有15个数，n=15，然后差距(gap)=n/2=7。</p>
+
+<p>例如图中的</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>下标</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>13</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>数组</td>
+      <td>4</td>
+      <td>2</td>
+      <td>6</td>
+      <td>3</td>
+      <td>8</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>6</td>
+      <td>2</td>
+      <td>9</td>
+      <td>3</td>
+      <td>6</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>组别</td>
+      <td>下标内部进行比较</td>
+    </tr>
+    <tr>
+      <td>第一组</td>
+      <td>0 , 7</td>
+    </tr>
+    <tr>
+      <td>第二组</td>
+      <td>1 , 8</td>
+    </tr>
+    <tr>
+      <td>第三组</td>
+      <td>2 , 9</td>
+    </tr>
+    <tr>
+      <td>第四组</td>
+      <td>3 , 10</td>
+    </tr>
+    <tr>
+      <td>第五组</td>
+      <td>4 , 11</td>
+    </tr>
+    <tr>
+      <td>第六组</td>
+      <td>5 , 12</td>
+    </tr>
+    <tr>
+      <td>第七组</td>
+      <td>6 , 13</td>
+    </tr>
+    <tr>
+      <td>第八组</td>
+      <td>0 , 7 , 14</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>然后就进行比较，例如：第一组，下标为0和7的值进行比较，4 &gt; 3，则交换，一直按顺序来做。做完一轮后，继续缩小增量，此时的gap=7/2=3</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>下标</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>13</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>数组</td>
+      <td>3</td>
+      <td>2</td>
+      <td>6</td>
+      <td>2</td>
+      <td>8</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4</td>
+      <td>4</td>
+      <td>6</td>
+      <td>3</td>
+      <td>9</td>
+      <td>3</td>
+      <td>6</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>组别</td>
+      <td>下标内部进行比较</td>
+    </tr>
+    <tr>
+      <td>第一组</td>
+      <td>0 , 3 , 6 , 9 , 12</td>
+    </tr>
+    <tr>
+      <td>第二组</td>
+      <td>1 , 4 , 7 , 10 , 13</td>
+    </tr>
+    <tr>
+      <td>第三组</td>
+      <td>2 , 5 , 8 , 11 , 14</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>以此类推（貌似过程是这样子，如果有错的话，请及时发送给我的邮箱，非常感谢你~）…</p>
+
+<p>代码如下（下标从0开始，如果是从1开始的话，要修改代码）：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="no">Shell_Sort</span><span class="p">(</span><span class="n">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="n">int</span> <span class="n">len</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">int</span> <span class="n">gap</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">gap</span><span class="o">=</span><span class="n">len</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="n">gap</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span><span class="n">gap</span><span class="o">/=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">int</span> <span class="n">i</span><span class="o">=</span><span class="n">gap</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">int</span> <span class="n">temp</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">;</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="n">gap</span><span class="o">&amp;&amp;</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">gap</span><span class="p">];</span><span class="n">j</span><span class="o">-=</span><span class="n">gap</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">gap</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<h3 id="归并排序分治法">归并排序（分治法）</h3>
+
+<p>过程如下</p>
+
+<p><img src="/static/img/sorts/6.gif" alt="6" width="60%" /></p>
+
+<p>思想：归并排序首先执行划分过程，将序列划分为两个序列，如果序列为1则划分结束，否则继续划分，然后将已有序的子序列合并，得到完全有序的序列。</p>
+
+<p>代码如下：</p>
+
+<p>平常的模版</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="no">Merge</span><span class="p">(</span><span class="n">int</span> <span class="n">r</span><span class="p">[</span> <span class="p">],</span> <span class="n">int</span> <span class="n">r1</span><span class="p">[</span> <span class="p">],</span> <span class="n">int</span> <span class="n">s</span><span class="p">,</span> <span class="n">int</span> <span class="n">m</span><span class="p">,</span> <span class="n">int</span> <span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>	
+    <span class="n">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">s</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">)</span>
+	<span class="p">{</span> 	
+        <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="n">r1</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">];</span> 
+		<span class="k">else</span> <span class="n">r1</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">];</span> 
+	<span class="p">}</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">)</span> <span class="n">r1</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">];</span> 
+	<span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">)</span> <span class="n">r1</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">];</span> 
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="no">MergeSort</span><span class="p">(</span><span class="n">int</span> <span class="n">r</span><span class="p">[</span> <span class="p">],</span> <span class="n">int</span> <span class="n">s</span><span class="p">,</span> <span class="n">int</span> <span class="n">t</span><span class="p">)</span> 
+<span class="p">{</span> 
+	<span class="n">int</span> <span class="n">m</span><span class="p">;</span>
+	<span class="n">int</span> <span class="n">r1</span><span class="p">[</span><span class="mi">1000</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>                
+	<span class="k">else</span> 
+	<span class="p">{</span>	
+        <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>            
+		<span class="no">MergeSort</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>  
+		<span class="no">MergeSort</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+		<span class="no">Merge</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="n">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">r1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+	<span class="p">}</span> 
+<span class="p">}</span></code></pre></figure>
+
+<p>对比下面<a href="https://www.acwing.com/blog/content/277/">y总的</a>其实都是差不多，都是要两个数组实现，只不过把两个代码合并了。</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="n">merge_sort</span><span class="p">(</span><span class="n">int</span> <span class="n">q</span><span class="p">[],</span> <span class="n">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">int</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="n">int</span> <span class="n">tmp</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">r</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">merge_sort</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+    <span class="n">merge_sort</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+    <span class="n">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">mid</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">q</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="n">tmp</span><span class="p">[</span><span class="n">k</span> <span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span> <span class="o">++</span> <span class="p">];</span>
+        <span class="k">else</span> <span class="n">tmp</span><span class="p">[</span><span class="n">k</span> <span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">j</span> <span class="o">++</span> <span class="p">];</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">mid</span><span class="p">)</span> <span class="n">tmp</span><span class="p">[</span><span class="n">k</span> <span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span> <span class="o">++</span> <span class="p">];</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">)</span> <span class="n">tmp</span><span class="p">[</span><span class="n">k</span> <span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">j</span> <span class="o">++</span> <span class="p">];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">,</span> <span class="n">j</span> <span class="o">++</span> <span class="p">)</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<h3 id="快速排序分治法">快速排序（分治法）</h3>
+
+<p>过程如下：</p>
+
+<p><img src="/static/img/sorts/7.gif" alt="7" width="60%" /></p>
+
+<p>思想：先从数列中取出一个数作为基准数。分区过程，将比这个数大的数全放到它的右边，小于或等于它的数全放到它的左边。再对左右区间重复第二步，直到各区间只有一个数。</p>
+
+<p>代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">void</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">int</span> <span class="n">q</span><span class="p">[],</span> <span class="n">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">int</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="n">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">q</span><span class="p">[</span> <span class="o">++</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="o">--</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">)</span> <span class="n">swap</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">quick_sort</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<h3 id="堆排序分治法">堆排序（分治法）</h3>
+
+<p><strong>堆的定义：</strong></p>
+
+<p>堆：完全二叉树 + 满足某种条件。父亲结点比左右儿子小（小根堆）或 父亲结点比左右儿子大（大根堆），一般升序用大根堆，降序用小根堆，自己画，自己想象。</p>
+
+<p>堆（heap）有时被称为优先队列（priority queue）。堆和队列有相似地方，在堆底插入元素，在堆顶取出元素，但是堆中元素的排列不是按照到来的先后顺序，而是按照一定的优先顺序排列的</p>
+
+<p><strong>堆排序思想</strong>：</p>
+
+<p>堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
+
+<p>如果不太了解堆排序的可以看<a href="https://www.cnblogs.com/jingmoxukong/p/4303826.html">这篇文章</a>，这篇是我看对比了这么多博客之后，还是不错的。</p>
+
+<p>过程如下：</p>
+
+<p><img src="/static/img/sorts/9.gif" alt="9" width="70%" /></p>
+
+<p>模板代码如下（来自y总）：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">h</span><span class="p">[</span><span class="no">N</span><span class="p">]</span><span class="err">存储堆中的值</span><span class="p">,</span> <span class="n">h</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="err">是堆顶，</span><span class="n">x</span><span class="err">的左儿子是</span><span class="mi">2</span><span class="n">x</span><span class="p">,</span> <span class="err">右儿子是</span><span class="mi">2</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">ph</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="err">存储第</span><span class="n">k</span><span class="err">个插入的点在堆中的位置</span>
+<span class="n">hp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="err">存储堆中下标是</span><span class="n">k</span><span class="err">的点是第几个插入的</span>
+
+<span class="n">int</span> <span class="n">h</span><span class="p">[</span><span class="no">N</span><span class="p">],</span> <span class="n">ph</span><span class="p">[</span><span class="no">N</span><span class="p">],</span> <span class="n">hp</span><span class="p">[</span><span class="no">N</span><span class="p">],</span> <span class="n">size</span><span class="p">;</span>
+
+<span class="err">交换两个点，及其映射关系</span>
+<span class="n">void</span> <span class="n">heap_swap</span><span class="p">(</span><span class="n">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">ph</span><span class="p">[</span><span class="n">hp</span><span class="p">[</span><span class="n">a</span><span class="p">]],</span><span class="n">ph</span><span class="p">[</span><span class="n">hp</span><span class="p">[</span><span class="n">b</span><span class="p">]]);</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">hp</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">hp</span><span class="p">[</span><span class="n">b</span><span class="p">]);</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">h</span><span class="p">[</span><span class="n">b</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="n">down</span><span class="p">(</span><span class="n">int</span> <span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">u</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">&amp;&amp;</span> <span class="n">h</span><span class="p">[</span><span class="n">u</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="n">t</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">&amp;&amp;</span> <span class="n">h</span><span class="p">[</span><span class="n">u</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="n">t</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">heap_swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+        <span class="n">down</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="n">up</span><span class="p">(</span><span class="n">int</span> <span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">u</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">h</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">u</span> <span class="o">/</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="p">{</span>
+        <span class="n">heap_swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="n">u</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="no">O</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="err">建堆</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">--</span> <span class="p">)</span> <span class="n">down</span><span class="p">(</span><span class="n">i</span><span class="p">);</span></code></pre></figure>
+
+<p>总的来说，就是要先建个初始堆，然后就进行堆排序</p>
+
+<hr />
+
+<h3 id="计数排序">计数排序</h3>
+
+<p>过程如下：</p>
+
+<p><img src="/static/img/sorts/8.gif" alt="8" width="60%" /></p>
+
+<p>貌似只能0~9，其他情况需要具体分析，这里就不写代码了.</p>
+
+<p>码字中ing…莫得办法，高质量的博客的就得时间</p>
+
+       
+      </article>
+      <hr>
+        <div class="bdsharebuttonbox">
+            <a href="#" class="bds_more" data-cmd="more"></a>
+            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+            <a href="#" class="bds_fbook" data-cmd="fbook" title="Share to Facebook"></a>
+            <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+            
+        </div>
+        <script>
+            window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    </div>
+	
+    <!-- duoshuo.com javascript include code. -->    
+    
+    <!-- disqus.com javascript include code. -->
+	
+    <div class="post-area post comment">
+        <div id="disqus_thread"></div>
+    </div>
+	<script>
+		var disqus_config = function () {
+			this.page.url = "http://Amdian.github.io/2021/02/28/%E6%8E%92%E5%BA%8F/"; 
+			this.page.identifier = "/2021/02/28/排序"; 
+		};
+		(function() {
+			var d = document, s = d.createElement('script');
+			s.src = '//Amdian.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+	
+    
+  </div>
+  
+  <div id="content" class="col-sm-3">
+    <!-- <div id="myAffix" class="shadow-bottom-center hidden-xs" data-spy="affix" data-offset-top="0" data-offset-bottom="-20"> -->
+    <div id="myAffix" class="shadow-bottom-center hidden-xs" >
+      <div class="categories-list-header">
+        导航
+      </div>
+      <div class="content-text"></div>
+    </div>
+  </div>
+
+</div>
+    </div>
+ 
+    <!-- 看板娘 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+    L2Dwidget.init({
+    "model": {
+    jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+    "scale": 1
+    },
+    "display": {
+    "width": 150,
+    "height": 300,
+    "position": "left",
+    "hOffset": 20,
+    "vOffset": -20
+    },
+    "mobile": {
+    "show": true,
+    "scale": 0.8
+    },
+    "react": {
+    "opacityDefault": 0.8,
+    "opacityOnHover": 0.2
+    }
+    });
+    });
+    </script> -->
+    <!-- 上面都是看板娘 -->
+    
+    <div class="waifu">
+    <div class="waifu-tips"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+    <div class="waifu-tool">
+    <span class="fui-chat"></span>
+    <span class="fui-photo"></span>
+    </div>
+    </div>
+    
+    <div id="top" data-toggle="tooltip" data-placement="left" title="back to top">
+      <a href="javascript:;">
+        <div class="arrow"></div>
+        <div class="stick"></div>
+      </a>
+    </div>
+
+
+
+
+    <footer class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="mailto:473919195@qq.com"><span class="glyphicon glyphicon-envelope"></span> 473919195@qq.com</a>
+        <span class="point"> · </span>
+        
+          <a href="https://github.com/Amdian">
+            <span class="icon">
+              <svg viewBox="0 0 16 16">
+                <path fill="#aaa" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            Github
+            <!-- <span>Amdian</span> -->
+          </a>
+          
+          <span class="point"> · </span>
+          <span><a href="_posts/algorithm/2021-2-28-排序.md">View source</a></span>
+          <span class="point"> · </span>
+          <span><a class="newpost" href="#">粤ICP备2021097855号</a></span>
+		  <span class="point"> · </span>
+          <span><a href="/feed.xml">RSS</a></span>
+          <span class="point"> · </span>
+          <span>&copy; 2021 Liucanming</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script type="text/javascript">
+    function OnClickNewPost()
+    {
+        var title = prompt("Please enter title of your post");
+        if (title!=null){
+            title = title.replace(" ", "-");
+            var currentdate = new Date();
+            var urlNewPage = "?filename=_posts/" 
+                + currentdate.getFullYear() + "-" + (currentdate.getMonth()+1) + "-" + currentdate.getDate() + "-" + title + ".md";
+                
+            var defaultText =  [
+                '---',
+                'layout: post',
+                'comments: true',
+                'categories: diary',
+                '---',
+                '## Title',
+                'text'
+                ].join('\n');
+            urlNewPage += "&value=" + encodeURIComponent(defaultText);
+            window.open(urlNewPage);
+        }
+    }
+    
+    $(function() {
+      // CreateNewPostLinks
+      $('.newpost').each(function(){
+          $(this).click(OnClickNewPost);
+      });
+    });
+</script>
+  
+  </body>
+</html>

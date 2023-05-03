@@ -34,4 +34,4 @@ markdown: kramdown
 
 defaults:
   - scope:
-      path: "/app-ads.txt"
+      path: "app-ads.txt"
